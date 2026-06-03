@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { IconShield, IconZap, IconVault, IconSignal } from '../ui/Icons'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -56,24 +57,24 @@ const ROLES = [
 
 const INFRA = [
   {
-    icon: '🔒',
+    Icon: IconShield,
     title: 'Secure by Default',
     body: 'End-to-end encryption. Role-based access control. Every action logged, timestamped, and auditable by independent authorities.',
   },
   {
-    icon: '⚡',
+    Icon: IconZap,
     title: 'Real-time Sync',
     body: 'WebSocket-powered live updates. All parties notified instantly. Status changes propagate across the system in milliseconds.',
   },
   {
-    icon: '📦',
+    Icon: IconVault,
     title: 'Document Vault',
     body: 'Tamper-proof storage with version control on every file. Digital signatures legally valid under IT Act, Section 5.',
   },
   {
-    icon: '📱',
+    Icon: IconSignal,
     title: 'Omnichannel',
-    body: 'Web, mobile, and SMS notifications. Designed for India\'s connectivity reality — degrades gracefully to 2G.',
+    body: "Web, mobile, and SMS notifications. Designed for India's connectivity reality — degrades gracefully to 2G.",
   },
 ]
 
@@ -345,7 +346,17 @@ export default function ArchitectureSection() {
                 padding: 'clamp(1.5rem, 2.5vw, 2rem)',
               }}
             >
-              <div style={{ fontSize: '1.5rem', marginBottom: '0.8rem' }}>{item.icon}</div>
+              <div style={{
+                width: 36, height: 36,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                background: 'rgba(201,164,90,0.07)',
+                border: '1px solid rgba(201,164,90,0.15)',
+                borderRadius: 6,
+                marginBottom: '1rem',
+                color: '#C9A45A',
+              }}>
+                <item.Icon size={18} stroke="#C9A45A" strokeWidth={1.5} />
+              </div>
               <div style={{
                 fontFamily: '"Space Grotesk", system-ui, sans-serif',
                 fontSize: '0.88rem', fontWeight: 600,

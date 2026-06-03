@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useForm } from 'react-hook-form'
+import { IconCheckCircle } from '../ui/Icons'
 
 /* ─── Form types ─────────────────────────────────────────────────── */
 interface WaitlistFormData {
@@ -106,7 +107,20 @@ function WaitlistForm() {
           padding: 'clamp(3rem, 6vw, 5rem) clamp(2rem, 5vw, 4rem)',
         }}
       >
-        <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>✓</div>
+        <motion.div
+          initial={{ scale: 0.5, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
+          style={{
+            width: 56, height: 56, borderRadius: '50%',
+            border: '1.5px solid rgba(201,164,90,0.5)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            margin: '0 auto 1.2rem',
+            background: 'rgba(201,164,90,0.06)',
+          }}
+        >
+          <IconCheckCircle size={26} stroke="#C9A45A" strokeWidth={1.5} />
+        </motion.div>
         <div style={{
           fontFamily: '"Cormorant Garamond", Georgia, serif',
           fontSize: 'clamp(1.5rem, 3vw, 2.2rem)',
@@ -584,7 +598,28 @@ export default function CloserSection() {
               fontFamily: '"Space Grotesk", system-ui, sans-serif',
               fontSize: '0.72rem', color: '#2D2B27',
             }}>
-              Built in India 🇮🇳
+              Built in India
+              <svg
+                viewBox="0 0 28 20"
+                width="22" height="16"
+                style={{ display: 'inline-block', verticalAlign: 'middle', marginLeft: 6, borderRadius: 2, overflow: 'hidden' }}
+              >
+                <rect width="28" height="20" fill="#138808" />
+                <rect width="28" height="13.4" fill="#fff" />
+                <rect width="28" height="6.7" fill="#FF9933" />
+                <circle cx="14" cy="10" r="2.2" fill="none" stroke="#000088" strokeWidth="0.5" />
+                {Array.from({ length: 24 }).map((_, k) => (
+                  <line
+                    key={k}
+                    x1="14" y1="10"
+                    x2={14 + 2.2 * Math.cos((k * Math.PI * 2) / 24)}
+                    y2={10 + 2.2 * Math.sin((k * Math.PI * 2) / 24)}
+                    stroke="#000088"
+                    strokeWidth="0.4"
+                  />
+                ))}
+                <circle cx="14" cy="10" r="0.5" fill="#000088" />
+              </svg>
             </span>
           </div>
 
