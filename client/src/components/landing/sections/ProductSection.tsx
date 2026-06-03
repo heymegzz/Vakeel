@@ -17,37 +17,37 @@ const CAUSE_LIST_CASES = [
 
 function CauseListMock() {
   const statusColor: Record<string, string> = {
-    'LISTED':     'rgba(201,164,90,0.15)',
-    'PART HEARD': 'rgba(180,110,20,0.15)',
-    'ADJOURNED':  'rgba(60,60,70,0.4)',
+    'LISTED':     'var(--c-gold-subtle)',
+    'PART HEARD': 'rgba(180,110,20,0.12)',
+    'ADJOURNED':  'var(--c-s3)',
   }
   const statusText: Record<string, string> = {
-    'LISTED':     '#C9A45A',
+    'LISTED':     'var(--c-gold)',
     'PART HEARD': '#C97A30',
-    'ADJOURNED':  '#5C5650',
+    'ADJOURNED':  'var(--c-text3)',
   }
 
   return (
     <div style={{
-      background: '#0A0A10',
-      border: '1px solid rgba(201,164,90,0.15)',
+      background: 'var(--c-s1)',
+      border: '1px solid var(--c-gold-border)',
       borderRadius: 6,
       width: 'min(420px, 90vw)',
       overflow: 'hidden',
       fontFamily: '"Space Mono", monospace',
-      boxShadow: '0 8px 40px rgba(0,0,0,0.6)',
+      boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
     }}>
       {/* Header */}
       <div style={{
-        borderBottom: '1px solid rgba(201,164,90,0.1)',
+        borderBottom: '1px solid var(--c-border)',
         padding: '12px 16px',
         display: 'flex', justifyContent: 'space-between', alignItems: 'center',
       }}>
         <div>
-          <div style={{ fontSize: '0.6rem', letterSpacing: '0.1em', color: '#C9A45A' }}>
+          <div style={{ fontSize: '0.6rem', letterSpacing: '0.1em', color: 'var(--c-gold)' }}>
             HIGH COURT — BENCH I — 03.06.2026
           </div>
-          <div style={{ fontSize: '0.72rem', color: '#EBE1CC', marginTop: 2 }}>
+          <div style={{ fontSize: '0.72rem', color: 'var(--c-cream)', marginTop: 2 }}>
             Daily Cause List
           </div>
         </div>
@@ -65,11 +65,11 @@ function CauseListMock() {
       <div style={{
         display: 'grid', gridTemplateColumns: '28px 1fr 1fr 72px',
         padding: '6px 16px',
-        background: 'rgba(201,164,90,0.04)',
-        borderBottom: '1px solid rgba(201,164,90,0.06)',
+        background: 'var(--c-gold-subtle)',
+        borderBottom: '1px solid var(--c-border)',
       }}>
         {['SR', 'CASE', 'ADVOCATE', 'STATUS'].map(h => (
-          <span key={h} style={{ fontSize: '0.52rem', letterSpacing: '0.1em', color: '#5C5650' }}>{h}</span>
+          <span key={h} style={{ fontSize: '0.52rem', letterSpacing: '0.1em', color: 'var(--c-text3)' }}>{h}</span>
         ))}
       </div>
 
@@ -88,12 +88,12 @@ function CauseListMock() {
             alignItems: 'center',
           }}
         >
-          <span style={{ fontSize: '0.58rem', color: '#5C5650' }}>{c.sr}</span>
+          <span style={{ fontSize: '0.58rem', color: 'var(--c-text3)' }}>{c.sr}</span>
           <div>
-            <div style={{ fontSize: '0.6rem', color: '#C9A45A', letterSpacing: '0.04em' }}>{c.cnr}</div>
-            <div style={{ fontSize: '0.65rem', color: '#9D9488', marginTop: 2 }}>{c.parties}</div>
+            <div style={{ fontSize: '0.6rem', color: 'var(--c-gold)', letterSpacing: '0.04em' }}>{c.cnr}</div>
+            <div style={{ fontSize: '0.65rem', color: 'var(--c-text2)', marginTop: 2 }}>{c.parties}</div>
           </div>
-          <span style={{ fontSize: '0.62rem', color: '#9D9488' }}>{c.adv}</span>
+          <span style={{ fontSize: '0.62rem', color: 'var(--c-text2)' }}>{c.adv}</span>
           <span style={{
             fontSize: '0.52rem', letterSpacing: '0.06em',
             background: statusColor[c.status] ?? 'rgba(60,60,70,0.3)',
@@ -133,16 +133,16 @@ function CaseFilingMock() {
 
   return (
     <div style={{
-      background: '#0A0A10', border: '1px solid rgba(201,164,90,0.15)',
+      background: 'var(--c-s1)', border: '1px solid var(--c-gold-border)',
       borderRadius: 6, width: 'min(380px, 90vw)',
       overflow: 'hidden', fontFamily: '"Space Mono", monospace',
-      boxShadow: '0 8px 40px rgba(0,0,0,0.6)',
+      boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
     }}>
-      <div style={{ padding: '14px 18px', borderBottom: '1px solid rgba(201,164,90,0.08)' }}>
-        <div style={{ fontSize: '0.58rem', letterSpacing: '0.12em', color: '#C9A45A', marginBottom: 2 }}>
+      <div style={{ padding: '14px 18px', borderBottom: '1px solid var(--c-border)' }}>
+        <div style={{ fontSize: '0.58rem', letterSpacing: '0.12em', color: 'var(--c-gold)', marginBottom: 2 }}>
           DIGITAL CASE FILING
         </div>
-        <div style={{ fontSize: '0.7rem', color: '#EBE1CC' }}>New Writ Petition</div>
+        <div style={{ fontSize: '0.7rem', color: 'var(--c-cream)' }}>New Writ Petition</div>
       </div>
       <div style={{ padding: '16px 18px', display: 'flex', flexDirection: 'column', gap: 10 }}>
         {[
@@ -152,26 +152,26 @@ function CaseFilingMock() {
           { label: 'RESPONDENT', value: 'Maharashtra State' },
         ].map(f => (
           <div key={f.label}>
-            <div style={{ fontSize: '0.52rem', letterSpacing: '0.12em', color: '#5C5650', marginBottom: 3 }}>{f.label}</div>
+            <div style={{ fontSize: '0.52rem', letterSpacing: '0.12em', color: 'var(--c-text3)', marginBottom: 3 }}>{f.label}</div>
             <div style={{
-              background: '#13131A', border: '1px solid rgba(201,164,90,0.1)',
+              background: 'var(--c-s2)', border: '1px solid var(--c-border)',
               borderRadius: 3, padding: '7px 10px',
-              fontSize: '0.65rem', color: '#C4B89A',
+              fontSize: '0.65rem', color: 'var(--c-text2)',
             }}>{f.value}</div>
           </div>
         ))}
 
         {/* CNR generation */}
         <div style={{ borderTop: '1px solid rgba(201,164,90,0.08)', paddingTop: 12, marginTop: 4 }}>
-          <div style={{ fontSize: '0.52rem', letterSpacing: '0.12em', color: '#5C5650', marginBottom: 6 }}>
+          <div style={{ fontSize: '0.52rem', letterSpacing: '0.12em', color: 'var(--c-text3)', marginBottom: 6 }}>
             CNR NUMBER — AUTO GENERATED
           </div>
           <div style={{
             display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-            background: '#07070A', border: '1px solid rgba(201,164,90,0.25)',
+            background: 'var(--c-bg)', border: '1px solid var(--c-gold-border)',
             borderRadius: 3, padding: '10px 12px',
           }}>
-            <span style={{ fontSize: '0.9rem', color: '#E8C97A', letterSpacing: '0.08em' }}>
+            <span style={{ fontSize: '0.9rem', color: 'var(--c-gold)', letterSpacing: '0.08em' }}>
               {cnr}<span style={{ animation: 'blink 1s step-end infinite', opacity: cnr.length < fullCnr.length ? 1 : 0 }}>|</span>
             </span>
             <AnimatePresence>
@@ -196,7 +196,7 @@ function CaseFilingMock() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
-              style={{ fontSize: '0.55rem', color: '#5C5650', marginTop: 6 }}
+              style={{ fontSize: '0.55rem', color: 'var(--c-text3)', marginTop: 6 }}
             >
               Filed: 03 Jun 2026, 10:42:17 IST
             </motion.div>
@@ -226,23 +226,23 @@ function SchedulerMock() {
 
   return (
     <div style={{
-      background: '#0A0A10', border: '1px solid rgba(201,164,90,0.15)',
+      background: 'var(--c-s1)', border: '1px solid var(--c-gold-border)',
       borderRadius: 6, width: 'min(400px, 90vw)',
       overflow: 'hidden', fontFamily: '"Space Mono", monospace',
-      boxShadow: '0 8px 40px rgba(0,0,0,0.6)',
+      boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
     }}>
-      <div style={{ padding: '12px 16px', borderBottom: '1px solid rgba(201,164,90,0.08)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div style={{ padding: '12px 16px', borderBottom: '1px solid var(--c-border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
-          <div style={{ fontSize: '0.58rem', letterSpacing: '0.1em', color: '#C9A45A' }}>BENCH II — JUNE 2026</div>
-          <div style={{ fontSize: '0.7rem', color: '#EBE1CC', marginTop: 2 }}>Hearing Scheduler</div>
+          <div style={{ fontSize: '0.58rem', letterSpacing: '0.1em', color: 'var(--c-gold)' }}>BENCH II — JUNE 2026</div>
+          <div style={{ fontSize: '0.7rem', color: 'var(--c-cream)', marginTop: 2 }}>Hearing Scheduler</div>
         </div>
-        <div style={{ fontSize: '0.55rem', color: '#9D9488' }}>12 / 15 slots</div>
+        <div style={{ fontSize: '0.55rem', color: 'var(--c-text2)' }}>12 / 15 slots</div>
       </div>
       <div style={{ padding: '12px 16px' }}>
         {/* Day headers */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5,1fr)', gap: 4, marginBottom: 4 }}>
           {CALENDAR_DAYS.map(d => (
-            <div key={d} style={{ textAlign: 'center', fontSize: '0.52rem', color: '#5C5650', letterSpacing: '0.08em' }}>{d}</div>
+            <div key={d} style={{ textAlign: 'center', fontSize: '0.52rem', color: 'var(--c-text3)', letterSpacing: '0.08em' }}>{d}</div>
           ))}
         </div>
         {/* Calendar rows */}
@@ -257,15 +257,15 @@ function SchedulerMock() {
                   transition={{ duration: 0.4 }}
                   style={{
                     height: 38, borderRadius: 3,
-                    background: cell ? 'rgba(201,164,90,0.08)' : 'rgba(255,255,255,0.02)',
-                    border: `1px solid ${cell ? 'rgba(201,164,90,0.2)' : 'rgba(255,255,255,0.04)'}`,
+                    background: cell ? 'var(--c-gold-subtle)' : 'var(--c-s3)',
+                    border: `1px solid ${cell ? 'var(--c-gold-border)' : 'var(--c-border)'}`,
                     display: 'flex', flexDirection: 'column',
                     alignItems: 'center', justifyContent: 'center',
                     overflow: 'hidden', padding: 2,
                   }}
                 >
                   {cell && (
-                    <span style={{ fontSize: '0.45rem', color: '#C9A45A', letterSpacing: '0.04em', textAlign: 'center' }}>
+                    <span style={{ fontSize: '0.45rem', color: 'var(--c-gold)', letterSpacing: '0.04em', textAlign: 'center' }}>
                       {isNew ? '✦ HC-0406' : cell}
                     </span>
                   )}
@@ -273,7 +273,7 @@ function SchedulerMock() {
                     <motion.span
                       initial={{ opacity: 0, scale: 0.6 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      style={{ fontSize: '0.45rem', color: '#C9A45A' }}
+                      style={{ fontSize: '0.45rem', color: 'var(--c-gold)' }}
                     >
                       ✦ NEW
                     </motion.span>
@@ -286,16 +286,16 @@ function SchedulerMock() {
         {/* Progress bar */}
         <div style={{ marginTop: 12, borderTop: '1px solid rgba(201,164,90,0.06)', paddingTop: 10 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 5 }}>
-            <span style={{ fontSize: '0.55rem', color: '#5C5650' }}>SLOT UTILIZATION</span>
-            <span style={{ fontSize: '0.55rem', color: '#C9A45A' }}>80%</span>
+            <span style={{ fontSize: '0.55rem', color: 'var(--c-text3)' }}>SLOT UTILIZATION</span>
+            <span style={{ fontSize: '0.55rem', color: 'var(--c-gold)' }}>80%</span>
           </div>
-          <div style={{ height: 3, background: 'rgba(201,164,90,0.08)', borderRadius: 2 }}>
+          <div style={{ height: 3, background: 'var(--c-gold-subtle)', borderRadius: 2 }}>
             <motion.div
               initial={{ width: 0 }}
               whileInView={{ width: '80%' }}
               viewport={{ once: true }}
               transition={{ duration: 1.2, delay: 0.5, ease: [0.16,1,0.3,1] }}
-              style={{ height: '100%', background: '#C9A45A', borderRadius: 2 }}
+              style={{ height: '100%', background: 'var(--c-gold)', borderRadius: 2 }}
             />
           </div>
         </div>
@@ -315,20 +315,20 @@ function OrderSigningMock() {
 
   return (
     <div style={{
-      background: '#0A0A10', border: '1px solid rgba(201,164,90,0.15)',
+      background: 'var(--c-s1)', border: '1px solid var(--c-gold-border)',
       borderRadius: 6, width: 'min(380px, 90vw)',
       overflow: 'hidden', fontFamily: '"Space Mono", monospace',
-      boxShadow: '0 8px 40px rgba(0,0,0,0.6)',
+      boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
     }}>
-      <div style={{ padding: '12px 16px', borderBottom: '1px solid rgba(201,164,90,0.08)' }}>
-        <div style={{ fontSize: '0.58rem', letterSpacing: '0.1em', color: '#C9A45A' }}>ORDER DRAFTING & SIGNING</div>
-        <div style={{ fontSize: '0.62rem', color: '#9D9488', marginTop: 2 }}>Civil Appeal No. 0042 of 2024</div>
+      <div style={{ padding: '12px 16px', borderBottom: '1px solid var(--c-border)' }}>
+        <div style={{ fontSize: '0.58rem', letterSpacing: '0.1em', color: 'var(--c-gold)' }}>ORDER DRAFTING & SIGNING</div>
+        <div style={{ fontSize: '0.62rem', color: 'var(--c-text2)', marginTop: 2 }}>Civil Appeal No. 0042 of 2024</div>
       </div>
       <div style={{ padding: '14px 18px' }}>
-        <div style={{ fontSize: '0.6rem', color: '#EBE1CC', lineHeight: 1.8, marginBottom: 16 }}>
+        <div style={{ fontSize: '0.6rem', color: 'var(--c-cream)', lineHeight: 1.8, marginBottom: 16 }}>
           IN THE HIGH COURT OF JUDICATURE AT BOMBAY
         </div>
-        <div style={{ fontSize: '0.62rem', color: '#9D9488', lineHeight: 1.75, marginBottom: 16, borderLeft: '2px solid rgba(201,164,90,0.15)', paddingLeft: 10 }}>
+        <div style={{ fontSize: '0.62rem', color: 'var(--c-text2)', lineHeight: 1.75, marginBottom: 16, borderLeft: '2px solid var(--c-gold-border)', paddingLeft: 10 }}>
           Having heard the parties and perused the material on record, this Court is of the considered opinion that the matter be listed for final hearing on 10.06.2026. The interim order dated 01.05.2026 shall continue...
         </div>
 
@@ -338,7 +338,7 @@ function OrderSigningMock() {
           borderRadius: 4, padding: '14px 16px',
           position: 'relative', minHeight: 70,
         }}>
-          <div style={{ fontSize: '0.52rem', color: '#5C5650', marginBottom: 8 }}>DIGITAL SIGNATURE ZONE</div>
+          <div style={{ fontSize: '0.52rem', color: 'var(--c-text3)', marginBottom: 8 }}>DIGITAL SIGNATURE ZONE</div>
 
           {/* SVG signature path animation */}
           <AnimatePresence>
@@ -352,7 +352,7 @@ function OrderSigningMock() {
               >
                 <motion.path
                   d="M 5,28 C 15,10 25,32 35,18 C 45,5 55,30 70,20 C 85,10 90,28 105,22 C 118,16 130,30 155,25"
-                  stroke="#C9A45A"
+                  stroke="var(--c-gold)"
                   strokeWidth="1.5"
                   fill="none"
                   strokeLinecap="round"
@@ -379,7 +379,7 @@ function OrderSigningMock() {
                   background: 'rgba(201,164,90,0.05)',
                 }}
               >
-                <div style={{ fontSize: '0.38rem', letterSpacing: '0.04em', color: '#C9A45A', textAlign: 'center', lineHeight: 1.4 }}>
+                <div style={{ fontSize: '0.38rem', letterSpacing: '0.04em', color: 'var(--c-gold)', textAlign: 'center', lineHeight: 1.4 }}>
                   DIGITALLY<br />SIGNED
                 </div>
               </motion.div>
@@ -392,7 +392,7 @@ function OrderSigningMock() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 2 }}
-            style={{ fontSize: '0.52rem', color: '#5C5650', marginTop: 8 }}
+            style={{ fontSize: '0.52rem', color: 'var(--c-text3)', marginTop: 8 }}
           >
             Hon'ble Mr. Justice R.K. Mehta &nbsp;|&nbsp; 03.06.2026 &nbsp;|&nbsp; 14:23 IST
           </motion.div>
@@ -414,29 +414,29 @@ function NotificationsMock() {
   return (
     <div style={{
       width: 'min(260px, 85vw)',
-      background: '#0A0A10',
-      border: '1px solid rgba(201,164,90,0.15)',
+      background: 'var(--c-s1)',
+      border: '1px solid var(--c-gold-border)',
       borderRadius: 22,
       overflow: 'hidden',
-      boxShadow: '0 8px 40px rgba(0,0,0,0.7)',
+      boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
     }}>
       {/* Phone top bar */}
       <div style={{
-        background: '#0D0D12',
+        background: 'var(--c-s2)',
         padding: '10px 16px 8px',
         display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-        borderBottom: '1px solid rgba(201,164,90,0.07)',
+        borderBottom: '1px solid var(--c-border)',
       }}>
-        <span style={{ fontFamily: '"Space Mono", monospace', fontSize: '0.58rem', color: '#5C5650' }}>9:41 AM</span>
+        <span style={{ fontFamily: '"Space Mono", monospace', fontSize: '0.58rem', color: 'var(--c-text3)' }}>9:41 AM</span>
         <div style={{
           width: 60, height: 6, borderRadius: 3,
-          background: 'rgba(255,255,255,0.06)',
+          background: 'var(--c-s3)',
         }} />
-        <span style={{ fontFamily: '"Space Mono", monospace', fontSize: '0.58rem', color: '#5C5650' }}>VAKEEL</span>
+        <span style={{ fontFamily: '"Space Mono", monospace', fontSize: '0.58rem', color: 'var(--c-text3)' }}>VAKEEL</span>
       </div>
 
       {/* Notification lock screen label */}
-      <div style={{ padding: '10px 14px 6px', fontFamily: '"Space Mono", monospace', fontSize: '0.52rem', color: '#5C5650', letterSpacing: '0.08em' }}>
+      <div style={{ padding: '10px 14px 6px', fontFamily: '"Space Mono", monospace', fontSize: '0.52rem', color: 'var(--c-text3)', letterSpacing: '0.08em' }}>
         NOTIFICATIONS
       </div>
 
@@ -450,8 +450,8 @@ function NotificationsMock() {
             viewport={{ once: true }}
             transition={{ duration: 0.45, delay: 0.4 + i * 0.15, ease: [0.16,1,0.3,1] }}
             style={{
-              background: 'rgba(255,255,255,0.03)',
-              border: '1px solid rgba(255,255,255,0.04)',
+              background: 'var(--c-s2)',
+              border: '1px solid var(--c-border)',
               borderRadius: 10, padding: '8px 10px',
               display: 'flex', gap: 8, alignItems: 'flex-start',
             }}
@@ -461,10 +461,10 @@ function NotificationsMock() {
               background: n.dot, flexShrink: 0, marginTop: 3,
             }} />
             <div style={{ flex: 1 }}>
-              <div style={{ fontFamily: '"Space Grotesk", system-ui, sans-serif', fontSize: '0.6rem', color: '#C4B89A', lineHeight: 1.4 }}>
+              <div style={{ fontFamily: '"Space Grotesk", system-ui, sans-serif', fontSize: '0.6rem', color: 'var(--c-text2)', lineHeight: 1.4 }}>
                 {n.text}
               </div>
-              <div style={{ fontFamily: '"Space Mono", monospace', fontSize: '0.5rem', color: '#5C5650', marginTop: 3 }}>
+              <div style={{ fontFamily: '"Space Mono", monospace', fontSize: '0.5rem', color: 'var(--c-text3)', marginTop: 3 }}>
                 {n.time} IST
               </div>
             </div>

@@ -1,16 +1,37 @@
-import { Suspense, useState, lazy } from 'react'
+import { Suspense, useState, useEffect, lazy } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useTheme } from '../providers/ThemeProvider'
 const CourtroomScene = lazy(() => import('../three/CourtroomScene'))
 
-/* ─── Mobile fallback ────────────────────────────────────────────── */
-function MobileHero() {
+/* ─── CSS hero (light mode + mobile fallback) ────────────────── */
+function CssHero() {
   return (
-    <div
-      style={{
+    <div style={{ position: 'absolute', inset: 0, background: 'var(--c-bg)' }}>
+      {/* Soft radial glow adapts to both themes */}
+      <div style={{
         position: 'absolute', inset: 0,
-        background: 'radial-gradient(ellipse 80% 60% at 50% 70%, rgba(201,164,90,0.07) 0%, #05050A 70%)',
-      }}
-    />
+        background: 'radial-gradient(ellipse 70% 55% at 50% 60%, var(--c-gold-subtle) 0%, transparent 70%)',
+      }} />
+      {/* Watermark scales SVG */}
+      <svg
+        width="520" height="520" viewBox="0 0 100 100" fill="none"
+        aria-hidden="true"
+        style={{
+          position: 'absolute', top: '50%', left: '50%',
+          transform: 'translate(-50%, -50%)',
+          opacity: 0.045, pointerEvents: 'none',
+        }}
+      >
+        <line x1="50" y1="8"  x2="50" y2="82" stroke="var(--c-gold)" strokeWidth="2"/>
+        <line x1="12" y1="24" x2="88" y2="24" stroke="var(--c-gold)" strokeWidth="2.5"/>
+        <circle cx="50" cy="24" r="4" fill="var(--c-gold)"/>
+        <line x1="16" y1="24" x2="16" y2="42" stroke="var(--c-gold)" strokeWidth="1.5"/>
+        <line x1="84" y1="24" x2="84" y2="42" stroke="var(--c-gold)" strokeWidth="1.5"/>
+        <path d="M8 42 Q16 56 24 42"  stroke="var(--c-gold)" strokeWidth="2" fill="none" strokeLinecap="round"/>
+        <path d="M76 42 Q84 56 92 42" stroke="var(--c-gold)" strokeWidth="2" fill="none" strokeLinecap="round"/>
+        <line x1="34" y1="82" x2="66" y2="82" stroke="var(--c-gold)" strokeWidth="2.5"/>
+      </svg>
+    </div>
   )
 }
 
@@ -141,8 +162,10 @@ function ScalesMark() {
 }
 
 /* ─── Wordmark reveal overlay ────────────────────────────────────── */
-function WordmarkReveal({ visible }: { visible: boolean }) {
+function WordmarkReveal({ visible, instant }: { visible: boolean; instant?: boolean }) {
   const easing: [number, number, number, number] = [0.16, 1, 0.3, 1]
+  // When instant=true (light/mobile mode), skip delays so wordmark appears without waiting
+  const d = (n: number) => instant ? 0 : n
 
   return (
     <AnimatePresence>
@@ -166,7 +189,7 @@ function WordmarkReveal({ visible }: { visible: boolean }) {
           <motion.div
             initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.15, ease: easing }}
+            transition={{ duration: instant ? 0.4 : 1, delay: d(0.15), ease: easing }}
             style={{ marginBottom: '1.4rem' }}
           >
             <ScalesMark />
@@ -176,13 +199,13 @@ function WordmarkReveal({ visible }: { visible: boolean }) {
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.4, delay: 0.6, ease: easing }}
+            transition={{ duration: instant ? 0.6 : 1.4, delay: d(0.6), ease: easing }}
             style={{
               fontFamily: '"Cormorant Garamond", Georgia, serif',
               fontSize: 'clamp(3.8rem, 8vw, 9rem)',
               fontWeight: 300,
               letterSpacing: '0.22em',
-              color: '#EBE1CC',
+              color: 'var(--c-cream)',
               lineHeight: 1,
               textShadow: '0 0 60px rgba(201,164,90,0.12)',
               margin: 0,
@@ -195,13 +218,13 @@ function WordmarkReveal({ visible }: { visible: boolean }) {
           <motion.p
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 1.4, ease: easing }}
+            transition={{ duration: instant ? 0.5 : 1, delay: d(1.4), ease: easing }}
             style={{
               fontFamily: '"Space Grotesk", system-ui, sans-serif',
               fontSize: '0.7rem',
               letterSpacing: '0.22em',
               textTransform: 'uppercase',
-              color: 'rgba(201,164,90,0.5)',
+              color: 'var(--c-gold)',
               marginTop: '1.4rem',
             }}
           >
@@ -212,7 +235,7 @@ function WordmarkReveal({ visible }: { visible: boolean }) {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 2.2, ease: easing }}
+            transition={{ duration: instant ? 0.5 : 1, delay: d(2.2), ease: easing }}
             style={{
               display: 'flex', gap: '1rem',
               marginTop: '2.5rem',
@@ -233,16 +256,16 @@ function WordmarkReveal({ visible }: { visible: boolean }) {
                 borderRadius: 3,
                 fontFamily: '"Space Grotesk", system-ui, sans-serif',
                 fontSize: '0.78rem', letterSpacing: '0.1em',
-                color: '#C9A45A', textDecoration: 'none',
+                color: 'var(--c-gold)', textDecoration: 'none',
                 transition: 'all 0.25s ease',
-                background: 'rgba(7,7,10,0.4)',
+                background: 'var(--c-gold-subtle)',
               }}
               onMouseEnter={e => {
-                e.currentTarget.style.background = 'rgba(201,164,90,0.1)'
-                e.currentTarget.style.borderColor = '#C9A45A'
+                e.currentTarget.style.background = 'var(--c-gold-subtle)'
+                e.currentTarget.style.borderColor = 'var(--c-gold)'
               }}
               onMouseLeave={e => {
-                e.currentTarget.style.background = 'rgba(7,7,10,0.4)'
+                e.currentTarget.style.background = 'var(--c-gold-subtle)'
                 e.currentTarget.style.borderColor = 'rgba(201,164,90,0.55)'
               }}
             >
@@ -262,16 +285,16 @@ function WordmarkReveal({ visible }: { visible: boolean }) {
                 borderRadius: 3,
                 fontFamily: '"Space Grotesk", system-ui, sans-serif',
                 fontSize: '0.78rem', letterSpacing: '0.1em',
-                color: 'rgba(228,221,208,0.5)', textDecoration: 'none',
+                color: 'var(--c-text2)', textDecoration: 'none',
                 background: 'transparent',
                 transition: 'all 0.25s ease',
               }}
               onMouseEnter={e => {
-                e.currentTarget.style.color = '#E4DDD0'
-                e.currentTarget.style.borderColor = 'rgba(228,221,208,0.3)'
+                e.currentTarget.style.color = 'var(--c-text)'
+                e.currentTarget.style.borderColor = 'var(--c-text2)'
               }}
               onMouseLeave={e => {
-                e.currentTarget.style.color = 'rgba(228,221,208,0.5)'
+                e.currentTarget.style.color = 'var(--c-text2)'
                 e.currentTarget.style.borderColor = 'rgba(228,221,208,0.12)'
               }}
             >
@@ -286,69 +309,65 @@ function WordmarkReveal({ visible }: { visible: boolean }) {
   )
 }
 
-/* ─── Opening section ────────────────────────────────────────────── */
+/* ─── Opening section ──────────────────────────────────────────────── */
 export default function OpeningSection() {
-  const [sceneReady,   setSceneReady]   = useState(false)
-  const [showScroll,   setShowScroll]   = useState(false)
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
-  // Read the current theme background so the bottom gradient blends correctly
-  const nextBg = typeof window !== 'undefined'
-    ? getComputedStyle(document.documentElement).getPropertyValue('--c-bg').trim() || '#07070A'
-    : '#07070A'
+  const { theme }  = useTheme()
+  const [sceneReady,  setSceneReady]  = useState(false)
+  const [showScroll,  setShowScroll]  = useState(false)
+  const isMobile  = typeof window !== 'undefined' && window.innerWidth < 768
+  // Skip 3-D scene in light mode (courtroom is inherently dark)
+  const skipScene = isMobile || theme === 'light'
 
   const handleSceneComplete = () => {
     setSceneReady(true)
     setTimeout(() => setShowScroll(true), 3000)
   }
 
+  // In light/mobile mode, show scroll indicator quickly without waiting for 3-D
+  useEffect(() => {
+    if (skipScene) {
+      const t = setTimeout(() => setShowScroll(true), 1800)
+      return () => clearTimeout(t)
+    }
+  }, [skipScene])
+
   return (
     <section
       id="opening"
       data-cursor="scene"
       style={{
-        position: 'relative',
-        width: '100%',
-        height: '100vh',
-        minHeight: 600,
-        overflow: 'hidden',
-        background: '#050508',
+        position: 'relative', width: '100%', height: '100vh',
+        minHeight: 600, overflow: 'hidden',
+        // Dark mode: deep scene black; light mode: CSS hero handles its own bg
+        background: skipScene ? 'var(--c-bg)' : '#050508',
+        transition: 'background 0.35s ease',
       }}
     >
-      {/* 3D Scene */}
-      {isMobile ? (
-        <MobileHero />
+      {/* Background layer */}
+      {skipScene ? (
+        <CssHero />
       ) : (
         <Suspense fallback={<SceneLoader />}>
           <CourtroomScene onComplete={handleSceneComplete} />
         </Suspense>
       )}
 
-      {/* Mobile: show wordmark immediately */}
-      {isMobile && !sceneReady && (
-        <div style={{
-          position: 'absolute', inset: 0, zIndex: 10,
-          display: 'flex', flexDirection: 'column',
-          alignItems: 'center', justifyContent: 'center',
-        }}>
-          <WordmarkReveal visible />
-        </div>
-      )}
-
-      {/* Desktop: reveal after scene animation */}
-      {!isMobile && <WordmarkReveal visible={sceneReady} />}
+      {/* Wordmark — visible immediately in light/mobile, after scene in dark */}
+      <WordmarkReveal
+        visible={skipScene || sceneReady}
+        instant={skipScene}
+      />
 
       {/* Scroll indicator */}
-      <ScrollIndicator visible={showScroll || isMobile} />
+      <ScrollIndicator visible={showScroll} />
 
-      {/* Bottom gradient fade into next section */}
-      <div
-        style={{
-          position: 'absolute', bottom: 0, left: 0, right: 0,
-          height: '22%',
-          background: `linear-gradient(to bottom, transparent, ${nextBg})`,
-          pointerEvents: 'none', zIndex: 5,
-        }}
-      />
+      {/* Bottom fade — always blends into the themed bg below */}
+      <div style={{
+        position: 'absolute', bottom: 0, left: 0, right: 0,
+        height: '22%',
+        background: 'linear-gradient(to bottom, transparent, var(--c-bg))',
+        pointerEvents: 'none', zIndex: 5,
+      }} />
     </section>
   )
 }
