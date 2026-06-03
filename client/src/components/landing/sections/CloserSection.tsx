@@ -41,7 +41,7 @@ function Field({ label, error, children }: FieldProps) {
         fontFamily: '"Space Mono", monospace',
         fontSize: '0.6rem', letterSpacing: '0.12em',
         textTransform: 'uppercase',
-        color: error ? '#8B1B1F' : 'rgba(92,86,80,0.9)',
+        color: error ? '#8B1B1F' : 'var(--c-text3)',
       }}>
         {label}
       </label>
@@ -59,13 +59,13 @@ function Field({ label, error, children }: FieldProps) {
 }
 
 const inputStyle: React.CSSProperties = {
-  background: '#13131A',
-  border: '1px solid rgba(201,164,90,0.15)',
+  background: 'var(--c-s2)',
+  border: '1px solid var(--c-gold-border)',
   borderRadius: 4,
   padding: '10px 14px',
   fontFamily: '"Space Grotesk", system-ui, sans-serif',
   fontSize: '0.88rem',
-  color: '#EBE1CC',
+  color: 'var(--c-cream)',
   outline: 'none',
   transition: 'border-color 0.2s ease',
   width: '100%',
@@ -156,8 +156,8 @@ function WaitlistForm() {
             {...register('name', { required: 'Name is required', minLength: { value: 2, message: 'At least 2 characters' } })}
             placeholder="Arjun Sharma"
             style={{ ...inputStyle, borderColor: errors.name ? 'rgba(139,27,31,0.6)' : 'rgba(201,164,90,0.15)' }}
-            onFocus={e => e.target.style.borderColor = 'rgba(201,164,90,0.5)'}
-            onBlur={e => e.target.style.borderColor = errors.name ? 'rgba(139,27,31,0.6)' : 'rgba(201,164,90,0.15)'}
+            onFocus={e => e.target.style.borderColor = 'var(--c-gold)'}
+            onBlur={e => e.target.style.borderColor = errors.name ? 'rgba(139,27,31,0.6)' : 'var(--c-gold-border)'}
           />
         </Field>
         <Field label="Email Address *" error={errors.email?.message}>
@@ -166,8 +166,8 @@ function WaitlistForm() {
             type="email"
             placeholder="arjun@highcourt.gov.in"
             style={{ ...inputStyle, borderColor: errors.email ? 'rgba(139,27,31,0.6)' : 'rgba(201,164,90,0.15)' }}
-            onFocus={e => e.target.style.borderColor = 'rgba(201,164,90,0.5)'}
-            onBlur={e => e.target.style.borderColor = errors.email ? 'rgba(139,27,31,0.6)' : 'rgba(201,164,90,0.15)'}
+            onFocus={e => e.target.style.borderColor = 'var(--c-gold)'}
+            onBlur={e => e.target.style.borderColor = errors.email ? 'rgba(139,27,31,0.6)' : 'var(--c-gold-border)'}
           />
         </Field>
       </div>
@@ -181,8 +181,8 @@ function WaitlistForm() {
           <select
             {...register('role', { required: 'Please select your role' })}
             style={{ ...inputStyle, borderColor: errors.role ? 'rgba(139,27,31,0.6)' : 'rgba(201,164,90,0.15)', appearance: 'none' }}
-            onFocus={e => e.target.style.borderColor = 'rgba(201,164,90,0.5)'}
-            onBlur={e => e.target.style.borderColor = errors.role ? 'rgba(139,27,31,0.6)' : 'rgba(201,164,90,0.15)'}
+            onFocus={e => e.target.style.borderColor = 'var(--c-gold)'}
+            onBlur={e => e.target.style.borderColor = errors.role ? 'rgba(139,27,31,0.6)' : 'var(--c-gold-border)'}
           >
             <option value="" style={{ background: '#13131A' }}>Select role…</option>
             {ROLES.map(r => <option key={r} value={r} style={{ background: '#13131A' }}>{r}</option>)}
@@ -193,8 +193,8 @@ function WaitlistForm() {
             {...register('institution')}
             placeholder="High Court of Bombay (optional)"
             style={inputStyle}
-            onFocus={e => e.target.style.borderColor = 'rgba(201,164,90,0.5)'}
-            onBlur={e => e.target.style.borderColor = 'rgba(201,164,90,0.15)'}
+            onFocus={e => e.target.style.borderColor = 'var(--c-gold)'}
+            onBlur={e => e.target.style.borderColor = 'var(--c-gold-border)'}
           />
         </Field>
       </div>
@@ -205,8 +205,8 @@ function WaitlistForm() {
           placeholder="Tell us about your use case… (optional)"
           rows={3}
           style={{ ...inputStyle, resize: 'vertical', lineHeight: 1.6 }}
-          onFocus={e => e.target.style.borderColor = 'rgba(201,164,90,0.5)'}
-          onBlur={e => e.target.style.borderColor = 'rgba(201,164,90,0.15)'}
+          onFocus={e => e.target.style.borderColor = 'var(--c-gold)'}
+          onBlur={e => e.target.style.borderColor = 'var(--c-gold-border)'}
         />
       </Field>
 
@@ -275,11 +275,9 @@ export default function CloserSection() {
       {/* ── Sub-section A: Conviction ── */}
       <div style={{
         minHeight: '100vh',
-        display: 'flex', flexDirection: 'column',
-        alignItems: 'center', justifyContent: 'center',
-        padding: 'clamp(6rem, 12vw, 12rem) clamp(1.5rem, 7vw, 6rem)',
-        textAlign: 'center',
-        position: 'relative',
+          display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+          padding: 'clamp(6rem, 12vw, 12rem) clamp(1.5rem, 7vw, 6rem)',
+          textAlign: 'center', position: 'relative',
       }}>
         {/* Radial glow */}
         <div aria-hidden style={{
@@ -315,12 +313,10 @@ export default function CloserSection() {
               transition={{ duration: 1.2, delay: i * 0.22, ease: easing }}
               style={{
                 fontFamily: '"Cormorant Garamond", Georgia, serif',
-                fontSize: 'clamp(2.8rem, 6vw, 7rem)',
-                fontStyle: 'italic',
-                fontWeight: 300,
-                color: '#EBE1CC',
-                lineHeight: 1.05,
-                letterSpacing: '-0.02em',
+                    fontSize: 'clamp(2.8rem, 6vw, 7rem)',
+                    fontStyle: 'italic', fontWeight: 300,
+                    color: tokens.cream,
+                    lineHeight: 1.05, letterSpacing: '-0.02em',
               }}
             >
               {line}
@@ -336,7 +332,7 @@ export default function CloserSection() {
           transition={{ duration: 0.8, delay: 0.6, ease: easing }}
           style={{
             fontFamily: '"Space Grotesk", system-ui, sans-serif',
-            fontSize: '0.82rem', color: '#9D9488',
+            fontSize: '0.82rem', color: tokens.text2,
             marginBottom: '3rem', letterSpacing: '0.02em',
           }}
         >
@@ -381,7 +377,7 @@ export default function CloserSection() {
             <p key={i} style={{
               fontFamily: '"Space Grotesk", system-ui, sans-serif',
               fontSize: 'clamp(0.9rem, 1.3vw, 1.05rem)',
-              color: line === 'This is what Vakeel is built for.' ? '#EBE1CC' : 'rgba(228,221,208,0.65)',
+              color: line === 'This is what Vakeel is built for.' ? tokens.cream : tokens.text2,
               lineHeight: 1.8,
               fontWeight: line === 'This is what Vakeel is built for.' ? 500 : 400,
               marginBottom: line === '' ? '1.2rem' : 0,
@@ -463,17 +459,17 @@ export default function CloserSection() {
             <div style={{
               fontFamily: '"Space Mono", monospace',
               fontSize: '0.6rem', letterSpacing: '0.2em',
-              textTransform: 'uppercase', color: '#C9A45A',
+              textTransform: 'uppercase', color: tokens.gold,
               marginBottom: '1.5rem',
               display: 'flex', alignItems: 'center', gap: 12,
             }}>
-              <span style={{ width: 24, height: 1, background: '#C9A45A', display: 'inline-block' }} />
+              <span style={{ width: 24, height: 1, background: tokens.gold, display: 'inline-block' }} />
               REQUEST EARLY ACCESS
             </div>
             <h2 style={{
               fontFamily: '"Cormorant Garamond", Georgia, serif',
               fontSize: 'clamp(2rem, 4vw, 3.5rem)',
-              fontWeight: 400, color: '#EBE1CC',
+              fontWeight: 400, color: tokens.cream,
               lineHeight: 1.15, letterSpacing: '-0.01em',
               marginBottom: '1rem',
             }}>
@@ -481,7 +477,7 @@ export default function CloserSection() {
             </h2>
             <p style={{
               fontFamily: '"Space Grotesk", system-ui, sans-serif',
-              fontSize: '0.9rem', color: '#9D9488',
+              fontSize: '0.9rem', color: tokens.text2,
               lineHeight: 1.65, marginBottom: '2.5rem',
             }}>
               We're onboarding courts, advocates, and legal-tech teams.
@@ -490,8 +486,8 @@ export default function CloserSection() {
 
             {/* Form card */}
             <div style={{
-              background: '#0D0D12',
-              border: '1px solid rgba(201,164,90,0.1)',
+              background: tokens.s1,
+              border: `1px solid ${tokens.border}`,
               borderRadius: 6,
               padding: 'clamp(2rem, 4vw, 3rem)',
             }}>
@@ -523,14 +519,14 @@ export default function CloserSection() {
                 <span style={{
                   fontFamily: '"Cormorant Garamond", Georgia, serif',
                   fontSize: '1.4rem', fontWeight: 600,
-                  letterSpacing: '0.12em', color: '#EBE1CC',
+                  letterSpacing: '0.12em', color: tokens.cream,
                 }}>
                   VAKEEL
                 </span>
                 <span style={{
                   fontFamily: '"Cormorant Garamond", Georgia, serif',
                   fontSize: '0.85rem', fontStyle: 'italic',
-                  color: 'rgba(201,164,90,0.65)',
+                  color: tokens.gold,
                 }}>
                   वकील
                 </span>
@@ -538,7 +534,7 @@ export default function CloserSection() {
               </div>
               <div style={{
                 fontFamily: '"Space Grotesk", system-ui, sans-serif',
-                fontSize: '0.75rem', color: '#5C5650',
+                fontSize: '0.75rem', color: tokens.text3,
               }}>
                 Court Management System for Indian Judiciary
               </div>
@@ -553,12 +549,12 @@ export default function CloserSection() {
                   data-cursor="hover"
                   style={{
                     fontFamily: '"Space Grotesk", system-ui, sans-serif',
-                    fontSize: '0.78rem', color: '#5C5650',
+                    fontSize: '0.78rem', color: tokens.text3,
                     textDecoration: 'none',
                     transition: 'color 0.2s ease',
                   }}
-                  onMouseEnter={e => e.currentTarget.style.color = '#9D9488'}
-                  onMouseLeave={e => e.currentTarget.style.color = '#5C5650'}
+                  onMouseEnter={e => e.currentTarget.style.color = tokens.text2}
+                  onMouseLeave={e => e.currentTarget.style.color = tokens.text3}
                 >
                   {link}
                 </a>
@@ -576,13 +572,13 @@ export default function CloserSection() {
           }}>
             <span style={{
               fontFamily: '"Space Grotesk", system-ui, sans-serif',
-              fontSize: '0.72rem', color: '#2D2B27',
+              fontSize: '0.72rem', color: tokens.text3,
             }}>
               © 2026 Vakeel Technologies. All rights reserved.
             </span>
             <span style={{
               fontFamily: '"Space Grotesk", system-ui, sans-serif',
-              fontSize: '0.72rem', color: '#2D2B27',
+              fontSize: '0.72rem', color: tokens.text3,
             }}>
               Built in India
               <svg

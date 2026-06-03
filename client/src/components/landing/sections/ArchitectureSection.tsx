@@ -92,21 +92,26 @@ function RoleCard({ role, index }: RoleCardProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.7, delay: index * 0.055, ease: [0.16, 1, 0.3, 1] }}
-      whileHover={{ borderColor: 'rgba(201,164,90,0.4)', backgroundColor: '#13131A' }}
       data-cursor="hover"
       style={{
-        background: '#0D0D12',
-        border: '1px solid rgba(201,164,90,0.1)',
+        background: 'var(--c-s1)',
+        border: '1px solid var(--c-border)',
         borderRadius: 4,
         padding: 'clamp(1.2rem, 2vw, 1.6rem)',
         position: 'relative',
         transition: 'border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease',
       }}
       onMouseEnter={e => {
-        (e.currentTarget as HTMLElement).style.boxShadow = '0 0 24px rgba(201,164,90,0.08)'
+        const el = e.currentTarget as HTMLElement
+        el.style.background = 'var(--c-s2)'
+        el.style.borderColor = 'var(--c-gold-border)'
+        el.style.boxShadow = '0 0 20px rgba(201,164,90,0.08)'
       }}
       onMouseLeave={e => {
-        (e.currentTarget as HTMLElement).style.boxShadow = 'none'
+        const el = e.currentTarget as HTMLElement
+        el.style.background = 'var(--c-s1)'
+        el.style.borderColor = 'var(--c-border)'
+        el.style.boxShadow = 'none'
       }}
     >
       {/* Abbr + num row */}
@@ -114,13 +119,13 @@ function RoleCard({ role, index }: RoleCardProps) {
         <span style={{
           fontFamily: '"Space Mono", monospace',
           fontSize: '0.78rem', fontWeight: 700,
-          color: '#C9A45A', letterSpacing: '0.06em',
+          color: 'var(--c-gold)', letterSpacing: '0.06em',
         }}>
           {role.abbr}
         </span>
         <span style={{
           fontFamily: '"Space Mono", monospace',
-          fontSize: '0.52rem', color: 'rgba(92,86,80,0.6)',
+          fontSize: '0.52rem', color: 'var(--c-text3)',
           letterSpacing: '0.08em',
         }}>
           {role.num}
@@ -131,7 +136,7 @@ function RoleCard({ role, index }: RoleCardProps) {
       <div style={{
         fontFamily: '"Space Grotesk", system-ui, sans-serif',
         fontSize: '0.95rem', fontWeight: 500,
-        color: '#EBE1CC', marginBottom: '0.4rem',
+        color: 'var(--c-cream)', marginBottom: '0.4rem',
       }}>
         {role.label}
       </div>
@@ -139,7 +144,7 @@ function RoleCard({ role, index }: RoleCardProps) {
       {/* Description */}
       <div style={{
         fontFamily: '"Space Grotesk", system-ui, sans-serif',
-        fontSize: '0.72rem', color: '#9D9488',
+        fontSize: '0.72rem', color: 'var(--c-text2)',
         lineHeight: 1.5, marginBottom: '0.9rem',
       }}>
         {role.desc}
@@ -154,10 +159,10 @@ function RoleCard({ role, index }: RoleCardProps) {
               fontFamily: '"Space Mono", monospace',
               fontSize: '0.48rem', letterSpacing: '0.05em',
               padding: '3px 7px',
-              background: 'rgba(201,164,90,0.06)',
-              border: '1px solid rgba(201,164,90,0.15)',
+              background: 'var(--c-gold-subtle)',
+              border: '1px solid var(--c-gold-border)',
               borderRadius: 2,
-              color: 'rgba(201,164,90,0.65)',
+              color: 'var(--c-gold)',
             }}
           >
             {p}
@@ -203,9 +208,9 @@ export default function ArchitectureSection() {
       ref={sectionRef}
       style={{
         background: tokens.bg,
-          padding: 'clamp(5rem, 10vw, 9rem) clamp(1.5rem, 7vw, 8rem)',
-          position: 'relative',
-          overflow: 'hidden',
+        padding: 'clamp(5rem, 10vw, 9rem) clamp(1.5rem, 7vw, 8rem)',
+        position: 'relative',
+        overflow: 'hidden',
       }}
     >
       {/* Scanline overlay */}
@@ -235,12 +240,12 @@ export default function ArchitectureSection() {
           style={{
             fontFamily: '"Space Mono", monospace',
             fontSize: '0.62rem', letterSpacing: '0.2em',
-            textTransform: 'uppercase', color: '#C9A45A',
+            textTransform: 'uppercase', color: tokens.gold,
             marginBottom: '3rem',
             display: 'flex', alignItems: 'center', gap: 12,
           }}
         >
-          <span style={{ width: 24, height: 1, background: '#C9A45A', display: 'inline-block' }} />
+          <span style={{ width: 24, height: 1, background: tokens.gold, display: 'inline-block' }} />
           ACT III — THE ARCHITECTURE
         </motion.div>
 
@@ -261,7 +266,7 @@ export default function ArchitectureSection() {
                 fontFamily: '"Cormorant Garamond", Georgia, serif',
                 fontSize: 'clamp(2.4rem, 5vw, 5.2rem)',
                 fontWeight: line.weight,
-                color: li === 0 ? '#EBE1CC' : 'rgba(228,221,208,0.65)',
+                color: li === 0 ? tokens.cream : tokens.text2,
                 lineHeight: 1.1,
                 letterSpacing: '-0.015em',
               }}
@@ -280,7 +285,7 @@ export default function ArchitectureSection() {
           style={{
             fontFamily: '"Space Grotesk", system-ui, sans-serif',
             fontSize: 'clamp(0.9rem, 1.3vw, 1.05rem)',
-            color: '#9D9488', maxWidth: 500,
+            color: tokens.text2, maxWidth: 500,
             lineHeight: 1.65, marginBottom: '4rem',
           }}
         >
@@ -294,10 +299,10 @@ export default function ArchitectureSection() {
           gridTemplateColumns: 'repeat(3, 1fr)',
           gap: 1,
           marginBottom: '5rem',
-          background: 'rgba(201,164,90,0.06)',
+          background: tokens.goldSubtle,
           borderRadius: 4,
           overflow: 'hidden',
-          border: '1px solid rgba(201,164,90,0.08)',
+          border: `1px solid ${tokens.border}`,
         }}
         className="md:grid-cols-3 sm:grid-cols-2 grid-cols-1"
         >
@@ -344,8 +349,8 @@ export default function ArchitectureSection() {
               transition={{ duration: 0.7, delay: i * 0.08, ease: [0.16,1,0.3,1] }}
               data-cursor="hover"
               style={{
-                background: '#0D0D12',
-                padding: 'clamp(1.5rem, 2.5vw, 2rem)',
+                background: tokens.s1,
+                  padding: 'clamp(1.5rem, 2.5vw, 2rem)',
               }}
             >
               <div style={{
@@ -362,13 +367,13 @@ export default function ArchitectureSection() {
               <div style={{
                 fontFamily: '"Space Grotesk", system-ui, sans-serif',
                 fontSize: '0.88rem', fontWeight: 600,
-                color: '#EBE1CC', marginBottom: '0.5rem',
+                  color: tokens.cream, marginBottom: '0.5rem',
               }}>
                 {item.title}
               </div>
               <div style={{
                 fontFamily: '"Space Grotesk", system-ui, sans-serif',
-                fontSize: '0.75rem', color: '#9D9488',
+                fontSize: '0.75rem', color: tokens.text2,
                 lineHeight: 1.6,
               }}>
                 {item.body}
@@ -384,8 +389,8 @@ export default function ArchitectureSection() {
           viewport={{ once: true }}
           transition={{ duration: 1, delay: 0.3 }}
           style={{
-            background: '#0A0A10',
-            border: '1px solid rgba(201,164,90,0.1)',
+            background: tokens.s1,
+            border: `1px solid ${tokens.border}`,
             borderRadius: 4,
             padding: '12px 20px',
             display: 'flex',
@@ -400,7 +405,7 @@ export default function ArchitectureSection() {
             <span style={{
               fontFamily: '"Space Mono", monospace',
               fontSize: '0.58rem', letterSpacing: '0.08em',
-              color: 'rgba(201,164,90,0.45)', whiteSpace: 'nowrap',
+              color: tokens.text3, whiteSpace: 'nowrap',
             }}>
               VAKEEL OS v1.0 — PRODUCTION — 9 ROLES ACTIVE — COURTS: CONNECTING
               <span style={{ animation: 'blink 1.2s step-end infinite' }}>▌</span>
@@ -413,8 +418,8 @@ export default function ArchitectureSection() {
               { k: 'ENCRYPTION', v: 'AES-256' },
             ].map(item => (
               <div key={item.k} style={{ textAlign: 'right' }}>
-                <div style={{ fontFamily: '"Space Mono", monospace', fontSize: '0.45rem', letterSpacing: '0.1em', color: '#5C5650' }}>{item.k}</div>
-                <div style={{ fontFamily: '"Space Mono", monospace', fontSize: '0.65rem', color: '#C9A45A' }}>{item.v}</div>
+                <div style={{ fontFamily: '"Space Mono", monospace', fontSize: '0.45rem', letterSpacing: '0.1em', color: tokens.text3 }}>{item.k}</div>
+                <div style={{ fontFamily: '"Space Mono", monospace', fontSize: '0.65rem', color: tokens.gold }}>{item.v}</div>
               </div>
             ))}
           </div>

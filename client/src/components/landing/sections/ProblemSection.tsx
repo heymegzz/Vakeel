@@ -161,12 +161,12 @@ export default function ProblemSection() {
           style={{
             fontFamily: '"Space Mono", monospace',
             fontSize: '0.62rem', letterSpacing: '0.2em',
-            textTransform: 'uppercase', color: '#C9A45A',
+            textTransform: 'uppercase', color: tokens.gold,
             marginBottom: '3rem',
             display: 'flex', alignItems: 'center', gap: 12,
           }}
         >
-          <span style={{ width: 24, height: 1, background: '#C9A45A', display: 'inline-block' }} />
+          <span style={{ width: 24, height: 1, background: tokens.gold, display: 'inline-block' }} />
           ACT I — THE PROBLEM
         </motion.div>
 
@@ -186,7 +186,7 @@ export default function ProblemSection() {
                 fontSize: 'clamp(2.4rem, 5.5vw, 5.5rem)',
                 fontWeight: li === 2 ? 700 : 300,
                 fontStyle: li === 1 ? 'italic' : 'normal',
-                color: li === 2 ? '#EBE1CC' : 'rgba(228,221,208,0.7)',
+                color: li === 2 ? tokens.cream : tokens.text2,
                 lineHeight: 1.15,
                 letterSpacing: '-0.01em',
               }}
@@ -215,7 +215,7 @@ export default function ProblemSection() {
               className="stat-card"
               data-cursor="hover"
               style={{
-                background: '#0D0D12',
+                background: tokens.s1,
                 padding: 'clamp(1.8rem, 3vw, 2.5rem) clamp(1.5rem, 2.5vw, 2rem)',
                 borderTop: `2px solid ${stat.accent}`,
                 position: 'relative',
@@ -227,7 +227,7 @@ export default function ProblemSection() {
                 position: 'absolute', top: 14, right: 16,
                 fontFamily: '"Space Mono", monospace',
                 fontSize: '0.58rem', letterSpacing: '0.1em',
-                color: 'rgba(92,86,80,0.6)',
+                color: tokens.text3,
               }}>
                 {String(i + 1).padStart(2, '0')}
               </span>
@@ -237,7 +237,7 @@ export default function ProblemSection() {
                 fontFamily: '"Cormorant Garamond", Georgia, serif',
                 fontSize: 'clamp(2.6rem, 4.5vw, 4.2rem)',
                 fontWeight: 700,
-                color: '#EBE1CC',
+                color: tokens.cream,
                 letterSpacing: '-0.02em',
                 lineHeight: 1,
                 marginBottom: 4,
@@ -258,7 +258,7 @@ export default function ProblemSection() {
               <div style={{
                 fontFamily: '"Space Grotesk", system-ui, sans-serif',
                 fontSize: '0.9rem', fontWeight: 500,
-                color: '#C9A45A', marginBottom: 6,
+                color: tokens.gold, marginBottom: 6,
               }}>
                 {stat.label}
               </div>
@@ -267,7 +267,7 @@ export default function ProblemSection() {
               <div style={{
                 fontFamily: '"Space Grotesk", system-ui, sans-serif',
                 fontSize: '0.78rem',
-                color: 'rgba(157,148,136,0.8)',
+                color: tokens.text2,
                 lineHeight: 1.5,
                 marginBottom: 10,
               }}>
@@ -278,8 +278,8 @@ export default function ProblemSection() {
               <span style={{
                 fontFamily: '"Space Mono", monospace',
                 fontSize: '0.56rem', letterSpacing: '0.1em',
-                color: 'rgba(92,86,80,0.7)',
-                borderTop: '1px solid rgba(201,164,90,0.08)',
+                color: tokens.text3,
+                borderTop: `1px solid ${tokens.goldSubtle}`,
                 paddingTop: 8, display: 'block',
               }}>
                 SOURCE: {stat.source}
@@ -307,7 +307,7 @@ export default function ProblemSection() {
             <div style={{
               fontFamily: '"Space Mono", monospace',
               fontSize: '0.6rem', letterSpacing: '0.15em',
-              color: 'rgba(92,86,80,0.7)',
+              color: tokens.text3,
               textTransform: 'uppercase',
               lineHeight: 2,
             }}>
@@ -323,7 +323,7 @@ export default function ProblemSection() {
               style={{
                 fontFamily: '"Space Grotesk", system-ui, sans-serif',
                 fontSize: 'clamp(1rem, 1.5vw, 1.2rem)',
-                color: 'rgba(228,221,208,0.75)',
+                color: tokens.text,
                 lineHeight: 1.85,
                 letterSpacing: '0.01em',
               }}
@@ -332,7 +332,7 @@ export default function ProblemSection() {
               It is someone's livelihood frozen in amber.
               A property dispute that outlasts the property.
               A criminal case where the accused waits longer than the sentence would last.{' '}
-              <span style={{ color: '#EBE1CC' }}>
+              <span style={{ color: tokens.cream }}>
                 65,000 courts. 40 million cases. Zero shared infrastructure.
               </span>
               {' '}Until now.

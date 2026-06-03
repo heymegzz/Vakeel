@@ -549,7 +549,7 @@ export default function ProductSection() {
   }, [isMobile])
 
   return (
-    <section id="product" style={{ background: tokens.bg, overflow: 'hidden' }}>
+    <section id="product" style={{ background: tokens.bg, overflow: 'hidden', color: tokens.text }}>
       {/* Section header — always visible above the scroll */}
       <div style={{
         padding: 'clamp(5rem, 8vw, 8rem) clamp(1.5rem, 7vw, 8rem) 0',
@@ -563,12 +563,12 @@ export default function ProductSection() {
           style={{
             fontFamily: '"Space Mono", monospace',
             fontSize: '0.62rem', letterSpacing: '0.2em',
-            textTransform: 'uppercase', color: '#C9A45A',
+            textTransform: 'uppercase', color: tokens.gold,
             marginBottom: '2rem',
             display: 'flex', alignItems: 'center', gap: 12,
           }}
         >
-          <span style={{ width: 24, height: 1, background: '#C9A45A', display: 'inline-block' }} />
+          <span style={{ width: 24, height: 1, background: tokens.gold, display: 'inline-block' }} />
           ACT II — THE PRODUCT
         </motion.div>
         <motion.h2
@@ -579,7 +579,7 @@ export default function ProductSection() {
           style={{
             fontFamily: '"Cormorant Garamond", Georgia, serif',
             fontSize: 'clamp(2.2rem, 4.5vw, 4.8rem)',
-            fontWeight: 300, color: '#EBE1CC',
+            fontWeight: 300, color: tokens.cream,
             letterSpacing: '-0.015em', lineHeight: 1.1,
             marginBottom: '0.5rem',
           }}
@@ -631,7 +631,7 @@ export default function ProductSection() {
                   <div style={{
                     fontFamily: '"Space Mono", monospace',
                     fontSize: '0.58rem', letterSpacing: '0.18em',
-                    textTransform: 'uppercase', color: '#C9A45A',
+                    textTransform: 'uppercase', color: tokens.gold,
                     marginBottom: '1.5rem',
                   }}>
                     {panel.label}
@@ -641,7 +641,7 @@ export default function ProductSection() {
                     style={{
                       fontFamily: '"Cormorant Garamond", Georgia, serif',
                       fontSize: 'clamp(1.8rem, 2.5vw, 3rem)',
-                      fontWeight: 400, color: '#EBE1CC',
+                      fontWeight: 400, color: tokens.cream,
                       lineHeight: 1.2, letterSpacing: '-0.01em',
                       marginBottom: '1.2rem',
                     }}
@@ -650,7 +650,7 @@ export default function ProductSection() {
                   </h3>
                   <p style={{
                     fontFamily: '"Space Grotesk", system-ui, sans-serif',
-                    fontSize: '0.9rem', color: '#9D9488',
+                    fontSize: '0.9rem', color: tokens.text2,
                     lineHeight: 1.75, maxWidth: 360,
                   }}>
                     {panel.body}
@@ -661,7 +661,7 @@ export default function ProductSection() {
                     fontFamily: '"Cormorant Garamond", Georgia, serif',
                     fontSize: 'clamp(4rem, 6vw, 7rem)',
                     fontWeight: 700,
-                    color: 'rgba(201,164,90,0.06)',
+                    color: tokens.goldSubtle,
                     lineHeight: 1,
                     letterSpacing: '-0.02em',
                     userSelect: 'none',
@@ -702,13 +702,13 @@ export default function ProductSection() {
                 paddingBottom: 'clamp(3rem, 8vw, 5rem)',
               }}
             >
-              <div style={{ fontFamily: '"Space Mono", monospace', fontSize: '0.58rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#C9A45A', marginBottom: '1rem' }}>
+              <div style={{ fontFamily: '"Space Mono", monospace', fontSize: '0.58rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: tokens.gold, marginBottom: '1rem' }}>
                 {panel.label}
               </div>
-              <h3 style={{ fontFamily: '"Cormorant Garamond", Georgia, serif', fontSize: 'clamp(1.6rem, 4vw, 2.4rem)', fontWeight: 400, color: '#EBE1CC', lineHeight: 1.2, marginBottom: '1rem' }}>
+              <h3 style={{ fontFamily: '"Cormorant Garamond", Georgia, serif', fontSize: 'clamp(1.6rem, 4vw, 2.4rem)', fontWeight: 400, color: tokens.cream, lineHeight: 1.2, marginBottom: '1rem' }}>
                 {panel.headline}
               </h3>
-              <p style={{ fontFamily: '"Space Grotesk"', fontSize: '0.88rem', color: '#9D9488', lineHeight: 1.7, marginBottom: '1.5rem' }}>
+              <p style={{ fontFamily: '"Space Grotesk"', fontSize: '0.88rem', color: tokens.text2, lineHeight: 1.7, marginBottom: '1.5rem' }}>
                 {panel.body}
               </p>
               <div style={{ display: 'flex', justifyContent: 'center' }}>

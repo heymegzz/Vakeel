@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { useTheme } from '../providers/ThemeProvider'
 
 /* ─── Ticker data ────────────────────────────────────────────────────── */
 
@@ -29,12 +30,13 @@ const ROW3 =
 /* ─── Component ──────────────────────────────────────────────────────── */
 
 export default function VitalsSection() {
+  const { tokens } = useTheme()
   return (
     <section
       id="vitals"
       style={{
         position:   'relative',
-        background: '#07070A',
+        background: tokens.bg,
         padding:    '8rem 0',
         overflow:   'hidden',
       }}
@@ -64,7 +66,7 @@ export default function VitalsSection() {
           fontWeight:    700,
           lineHeight:    1,
           letterSpacing: '-0.02em',
-          color:         'rgba(201,164,90,0.04)',
+          color:         tokens.goldSubtle,
           whiteSpace:    'nowrap',
           userSelect:    'none',
           pointerEvents: 'none',
@@ -82,7 +84,7 @@ export default function VitalsSection() {
           left:          0,
           right:         0,
           height:        200,
-          background:    'linear-gradient(to bottom, #07070A 0%, transparent 100%)',
+          background:    `linear-gradient(to bottom, ${tokens.bg} 0%, transparent 100%)`,
           pointerEvents: 'none',
           zIndex:        4,
         }}
@@ -99,7 +101,7 @@ export default function VitalsSection() {
             fontSize:      '0.6rem',
             letterSpacing: '0.22em',
             textTransform: 'uppercase',
-            color:         'rgba(201,164,90,0.45)',
+            color:         tokens.gold,
           }}
         >
           CASES PENDING TODAY
@@ -188,7 +190,7 @@ export default function VitalsSection() {
               fontFamily:    '"Cormorant Garamond", Georgia, serif',
               fontSize:      'clamp(1.8rem, 3vw, 2.5rem)',
               fontWeight:    400,
-              color:         '#EBE1CC',
+              color:         tokens.cream,
               lineHeight:    1.3,
               letterSpacing: '-0.01em',
             }}
@@ -201,7 +203,7 @@ export default function VitalsSection() {
             style={{
               fontFamily: '"Space Grotesk", system-ui, sans-serif',
               fontSize:   '0.95rem',
-              color:      'rgba(157,148,136,0.8)',
+              color:      tokens.text2,
               lineHeight: 1.7,
               marginTop:  '1rem',
             }}
@@ -284,7 +286,7 @@ export default function VitalsSection() {
           left:          0,
           right:         0,
           height:        200,
-          background:    'linear-gradient(to top, #07070A 0%, transparent 100%)',
+          background:    `linear-gradient(to top, ${tokens.bg} 0%, transparent 100%)`,
           pointerEvents: 'none',
           zIndex:        4,
         }}

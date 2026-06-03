@@ -291,6 +291,10 @@ export default function OpeningSection() {
   const [sceneReady,   setSceneReady]   = useState(false)
   const [showScroll,   setShowScroll]   = useState(false)
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+  // Read the current theme background so the bottom gradient blends correctly
+  const nextBg = typeof window !== 'undefined'
+    ? getComputedStyle(document.documentElement).getPropertyValue('--c-bg').trim() || '#07070A'
+    : '#07070A'
 
   const handleSceneComplete = () => {
     setSceneReady(true)
@@ -341,7 +345,7 @@ export default function OpeningSection() {
         style={{
           position: 'absolute', bottom: 0, left: 0, right: 0,
           height: '22%',
-          background: 'linear-gradient(to bottom, transparent, #07070A)',
+          background: `linear-gradient(to bottom, transparent, ${nextBg})`,
           pointerEvents: 'none', zIndex: 5,
         }}
       />
