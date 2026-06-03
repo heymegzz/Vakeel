@@ -24,7 +24,8 @@ npm run dev
 
 | Service | URL |
 | --- | --- |
-| Frontend | http://localhost:3000 |
+| Frontend (React app) | http://localhost:3000 |
+| Marketing landing (full experience) | http://localhost:3000/landing.html |
 | API health | http://localhost:5000/health |
 | API v1 root | http://localhost:5000/api/v1 |
 

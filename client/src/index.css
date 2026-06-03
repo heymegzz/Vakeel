@@ -2,8 +2,319 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── CSS Custom Properties ─────────────────────────────────────── */
+:root {
+  --gold:        #C9A45A;
+  --gold-bright: #E8C97A;
+  --gold-glow:   rgba(201, 164, 90, 0.15);
+  --cream:       #EBE1CC;
+  --crimson:     #8B1B1F;
+  --bg:          #07070A;
+  --text:        #E4DDD0;
+  --muted:       #9D9488;
+
+  /* Easing curves */
+  --ease-expo-out:  cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-expo-in:   cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-spring:    cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Cursor */
+  --cursor-size:   10px;
+  --cursor-ring:   36px;
+}
+
+/* ─── Base Reset ─────────────────────────────────────────────────── */
 @layer base {
-  body {
-    @apply bg-vakeel-cream text-vakeel-navy antialiased;
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
   }
+
+  html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: auto; /* Lenis handles smooth scroll */
+    cursor: none; /* Custom cursor */
+  }
+
+  body {
+    background-color: #07070A;
+    color: #E4DDD0;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* Hide default cursor globally */
+  *, *::before, *::after {
+    cursor: none !important;
+  }
+
+  /* Selection */
+  ::selection {
+    background: rgba(201, 164, 90, 0.25);
+    color: #EBE1CC;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 3px;
+    background: #07070A;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(201, 164, 90, 0.3);
+    border-radius: 2px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(201, 164, 90, 0.5);
+  }
+
+  /* Focus */
+  :focus-visible {
+    outline: 1px solid rgba(201, 164, 90, 0.6);
+    outline-offset: 3px;
+  }
+
+  a, button {
+    color: inherit;
+  }
+}
+
+/* ─── Custom Cursor ──────────────────────────────────────────────── */
+#cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--cursor-size);
+  height: var(--cursor-size);
+  background: var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s var(--ease-expo-out),
+              height 0.2s var(--ease-expo-out),
+              background 0.2s ease,
+              opacity 0.3s ease;
+  will-change: transform;
+  mix-blend-mode: difference;
+}
+
+#cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--cursor-ring);
+  height: var(--cursor-ring);
+  border: 1px solid rgba(201, 164, 90, 0.6);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.35s var(--ease-expo-out),
+              height 0.35s var(--ease-expo-out),
+              border-color 0.2s ease,
+              opacity 0.3s ease,
+              background 0.3s ease;
+  will-change: transform;
+}
+
+/* Cursor states */
+body.cursor-hover #cursor-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--gold-bright);
+}
+body.cursor-hover #cursor-ring {
+  width: 54px;
+  height: 54px;
+  border-color: rgba(201, 164, 90, 0.8);
+  background: rgba(201, 164, 90, 0.05);
+}
+body.cursor-text #cursor-ring {
+  width: 2px;
+  height: 26px;
+  border-radius: 1px;
+  border-color: rgba(201, 164, 90, 0.9);
+  background: rgba(201, 164, 90, 0.9);
+}
+body.cursor-text #cursor-dot {
+  opacity: 0;
+}
+body.cursor-scene #cursor-dot {
+  width: 4px;
+  height: 4px;
+}
+body.cursor-scene #cursor-ring {
+  width: 44px;
+  height: 44px;
+  border-color: rgba(201, 164, 90, 0.4);
+  border-style: dashed;
+}
+
+/* ─── Typography Utilities ───────────────────────────────────────── */
+@layer utilities {
+  .font-display {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+  }
+  .font-ui {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+  }
+  .font-data {
+    font-family: 'Space Mono', monospace;
+  }
+
+  /* Text rendering for large display type */
+  .text-display {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 0.95;
+  }
+
+  /* Section label */
+  .label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* Gold border gradient */
+  .border-gold {
+    border: 1px solid rgba(201, 164, 90, 0.18);
+  }
+  .border-gold-bright {
+    border: 1px solid rgba(201, 164, 90, 0.4);
+  }
+
+  /* Noise overlay */
+  .noise {
+    position: relative;
+  }
+  .noise::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.028;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Gold gradient text */
+  .text-gold-gradient {
+    background: linear-gradient(135deg, #C9A45A 0%, #E8C97A 40%, #C9A45A 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Glow text */
+  .text-glow-gold {
+    text-shadow: 0 0 40px rgba(201, 164, 90, 0.4);
+  }
+
+  /* Horizontal scroll container */
+  .horizontal-scroll {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+
+  /* Glass card */
+  .glass-card {
+    background: rgba(13, 13, 18, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(201, 164, 90, 0.1);
+  }
+
+  /* Clip path for section dividers */
+  .clip-angled {
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 3vw), 0 100%);
+  }
+  .clip-angled-reverse {
+    clip-path: polygon(0 3vw, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+/* ─── Lenis (smooth scroll) ──────────────────────────────────────── */
+html.lenis {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* ─── Three.js Canvas ────────────────────────────────────────────── */
+.r3f-canvas {
+  position: absolute !important;
+  inset: 0;
+  z-index: 0;
+}
+
+/* ─── GSAP will-change hint ──────────────────────────────────────── */
+.gsap-animatable {
+  will-change: transform, opacity;
+}
+
+/* ─── Section transitions ────────────────────────────────────────── */
+.section-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+/* ─── UI Mockup elements ─────────────────────────────────────────── */
+.mockup-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(201,164,90,0.3) 50%, transparent 100%);
+}
+
+/* ─── Animated underline ─────────────────────────────────────────── */
+.underline-gold {
+  position: relative;
+}
+.underline-gold::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.4s var(--ease-expo-out);
+}
+.underline-gold:hover::after {
+  width: 100%;
+}
+
+/* ─── Scanline animation for terminal sections ───────────────────── */
+.scanline {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(201,164,90,0.15), transparent);
+  animation: scan 8s linear infinite;
+  pointer-events: none;
+}
+
+/* ─── Counter flash ──────────────────────────────────────────────── */
+@keyframes counterFlash {
+  0%   { color: var(--gold-bright); text-shadow: 0 0 20px rgba(232,201,122,0.6); }
+  100% { color: var(--cream); text-shadow: none; }
+}
+.counter-flash {
+  animation: counterFlash 0.3s ease-out;
 }
