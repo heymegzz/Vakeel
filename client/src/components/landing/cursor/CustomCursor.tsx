@@ -19,20 +19,17 @@ type CursorMode = 'default' | 'hover' | 'text' | 'scene'
 
 export default function CustomCursor() {
   const scalesRef  = useRef<SVGSVGElement>(null)
-  const ringRef    = useRef<HTMLDivElement>(null)
   const pos        = useRef({ x: -100, y: -100 })
-  const ringPos    = useRef({ x: -100, y: -100 })
   const vel        = useRef({ x: 0, lastX: -100 })
-  const tilt       = useRef(0)           // current pan tilt angle (degrees)
-  const targetTilt = useRef(0)           // velocity-driven target tilt
+  const tilt       = useRef(0)
+  const targetTilt = useRef(0)
   const rafId      = useRef<number>(0)
   const modeRef    = useRef<CursorMode>('default')
   const { theme }  = useTheme()
 
   useEffect(() => {
     const scales = scalesRef.current
-    const ring   = ringRef.current
-    if (!scales || !ring) return
+    if (!scales) return
 
     const lerp = (a: number, b: number, t: number) => a + (b - a) * t
     const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v))
@@ -47,13 +44,7 @@ export default function CustomCursor() {
       const { x, y } = pos.current
       const mode = modeRef.current
 
-      // ── Scales SVG — follows cursor instantly (no lag on primary element)
       scales.style.transform = `translate3d(${x - 12}px, ${y - 20}px, 0)`
-
-      // ── Ring — follows with lerp for trailing feel
-      ringPos.current.x = lerp(ringPos.current.x, x, 0.11)
-      ringPos.current.y = lerp(ringPos.current.y, y, 0.11)
-      ring.style.transform = `translate3d(${ringPos.current.x - 19}px, ${ringPos.current.y - 19}px, 0)`
 
       // ── Pan tilt based on horizontal velocity (only in default mode)
       if (mode === 'default') {
@@ -80,32 +71,9 @@ export default function CustomCursor() {
     const setMode = (m: CursorMode) => {
       if (modeRef.current === m) return
       modeRef.current = m
-
-      // Scales visibility + ring style
-      if (m === 'text') {
-        scales.style.opacity = '0'
-        ring.style.width     = '2px'
-        ring.style.height    = '26px'
-        ring.style.borderRadius = '1px'
-      } else if (m === 'scene') {
-        scales.style.opacity    = '0.4'
-        ring.style.width        = '44px'
-        ring.style.height       = '44px'
-        ring.style.borderRadius = '50%'
-        ring.style.borderStyle  = 'dashed'
-      } else if (m === 'hover') {
-        scales.style.opacity    = '1'
-        ring.style.width        = '52px'
-        ring.style.height       = '52px'
-        ring.style.borderRadius = '50%'
-        ring.style.borderStyle  = 'solid'
-      } else {
-        scales.style.opacity    = '1'
-        ring.style.width        = '38px'
-        ring.style.height       = '38px'
-        ring.style.borderRadius = '50%'
-        ring.style.borderStyle  = 'solid'
-      }
+      // Dim scales on text/scene, full opacity otherwise
+      scales.style.opacity = (m === 'text') ? '0' : (m === 'scene') ? '0.4' : '1'
+      scales.style.transform += '' // force repaint
     }
 
     const onMouseOver = (e: MouseEvent) => {
@@ -127,13 +95,10 @@ export default function CustomCursor() {
   }, [])
 
   const goldColor = theme === 'dark' ? '#C9A45A' : '#8B6018'
-  const ringBorder = theme === 'dark'
-    ? '1px solid rgba(201,164,90,0.55)'
-    : '1px solid rgba(139,96,24,0.55)'
 
   return (
     <>
-      {/* ── Scales of Justice SVG cursor ── */}
+      {/* Scales of Justice SVG — the only cursor element */}
       <svg
         ref={scalesRef}
         aria-hidden="true"
@@ -170,27 +135,6 @@ export default function CustomCursor() {
         <line x1="9" y1="24" x2="15" y2="24" stroke={goldColor} strokeWidth="1.0" strokeLinecap="round" strokeOpacity="0.6" />
       </svg>
 
-      {/* ── Trailing ring ── */}
-      <div
-        ref={ringRef}
-        aria-hidden="true"
-        style={{
-          position: 'fixed', top: 0, left: 0,
-          width: 38, height: 38,
-          borderRadius: '50%',
-          border: ringBorder,
-          pointerEvents: 'none',
-          zIndex: 9998,
-          willChange: 'transform',
-          transition: [
-            'width 0.3s cubic-bezier(0.16,1,0.3,1)',
-            'height 0.3s cubic-bezier(0.16,1,0.3,1)',
-            'border-radius 0.3s ease',
-            'border-color 0.2s ease',
-            'opacity 0.2s ease',
-          ].join(', '),
-        }}
-      />
     </>
   )
 }

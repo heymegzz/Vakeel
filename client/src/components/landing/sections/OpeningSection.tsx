@@ -158,11 +158,25 @@ function WordmarkReveal({ visible }: { visible: boolean }) {
             pointerEvents: 'none',
           }}
         >
+          {/*
+           * Scales emblem — rendered ABOVE the wordmark as a crest.
+           * This keeps it visually separated from VAKEEL and prevents
+           * the centered SVG from ever landing in the K–E letter gap.
+           */}
+          <motion.div
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.15, ease: easing }}
+            style={{ marginBottom: '1.4rem' }}
+          >
+            <ScalesMark />
+          </motion.div>
+
           {/* Primary wordmark */}
           <motion.h1
-            initial={{ opacity: 0, y: 14 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.5, delay: 0.2, ease: easing }}
+            transition={{ duration: 1.4, delay: 0.6, ease: easing }}
             style={{
               fontFamily: '"Cormorant Garamond", Georgia, serif',
               fontSize: 'clamp(3.8rem, 8vw, 9rem)',
@@ -170,46 +184,25 @@ function WordmarkReveal({ visible }: { visible: boolean }) {
               letterSpacing: '0.22em',
               color: '#EBE1CC',
               lineHeight: 1,
-              textShadow: '0 0 80px rgba(201,164,90,0.15)',
+              textShadow: '0 0 60px rgba(201,164,90,0.12)',
               margin: 0,
             }}
           >
             VAKEEL
           </motion.h1>
 
-          {/* Devanagari subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, delay: 0.9, ease: easing }}
-            style={{
-              fontFamily: '"Cormorant Garamond", Georgia, serif',
-              fontSize: 'clamp(1.3rem, 2.5vw, 2.2rem)',
-              fontStyle: 'italic', fontWeight: 400,
-              letterSpacing: '0.08em',
-              color: 'rgba(201,164,90,0.75)',
-              marginTop: '0.5rem',
-            }}
-          >
-            वकील
-          </motion.p>
-
-          {/* Animated scales mark */}
-          <div style={{ display: 'flex', justifyContent: 'center', margin: '1.6rem 0 1.4rem' }}>
-            <ScalesMark />
-          </div>
-
-          {/* Tagline */}
+          {/* Tagline — directly under the wordmark, no divider between them */}
           <motion.p
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 1.7, ease: easing }}
+            transition={{ duration: 1, delay: 1.4, ease: easing }}
             style={{
               fontFamily: '"Space Grotesk", system-ui, sans-serif',
-              fontSize: '0.72rem',
-              letterSpacing: '0.2em',
+              fontSize: '0.7rem',
+              letterSpacing: '0.22em',
               textTransform: 'uppercase',
-              color: 'rgba(201,164,90,0.55)',
+              color: 'rgba(201,164,90,0.5)',
+              marginTop: '1.4rem',
             }}
           >
             The Operating System for Indian Courts
