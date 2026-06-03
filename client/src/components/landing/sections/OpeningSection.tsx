@@ -7,30 +7,11 @@ const CourtroomScene = lazy(() => import('../three/CourtroomScene'))
 function CssHero() {
   return (
     <div style={{ position: 'absolute', inset: 0, background: 'var(--c-bg)' }}>
-      {/* Soft radial glow adapts to both themes */}
+      {/* Soft centred glow — matches the courtroom lighting atmosphere */}
       <div style={{
         position: 'absolute', inset: 0,
-        background: 'radial-gradient(ellipse 70% 55% at 50% 60%, var(--c-gold-subtle) 0%, transparent 70%)',
+        background: 'radial-gradient(ellipse 60% 50% at 50% 58%, var(--c-gold-subtle) 0%, transparent 70%)',
       }} />
-      {/* Watermark scales SVG */}
-      <svg
-        width="520" height="520" viewBox="0 0 100 100" fill="none"
-        aria-hidden="true"
-        style={{
-          position: 'absolute', top: '50%', left: '50%',
-          transform: 'translate(-50%, -50%)',
-          opacity: 0.045, pointerEvents: 'none',
-        }}
-      >
-        <line x1="50" y1="8"  x2="50" y2="82" stroke="var(--c-gold)" strokeWidth="2"/>
-        <line x1="12" y1="24" x2="88" y2="24" stroke="var(--c-gold)" strokeWidth="2.5"/>
-        <circle cx="50" cy="24" r="4" fill="var(--c-gold)"/>
-        <line x1="16" y1="24" x2="16" y2="42" stroke="var(--c-gold)" strokeWidth="1.5"/>
-        <line x1="84" y1="24" x2="84" y2="42" stroke="var(--c-gold)" strokeWidth="1.5"/>
-        <path d="M8 42 Q16 56 24 42"  stroke="var(--c-gold)" strokeWidth="2" fill="none" strokeLinecap="round"/>
-        <path d="M76 42 Q84 56 92 42" stroke="var(--c-gold)" strokeWidth="2" fill="none" strokeLinecap="round"/>
-        <line x1="34" y1="82" x2="66" y2="82" stroke="var(--c-gold)" strokeWidth="2.5"/>
-      </svg>
     </div>
   )
 }
@@ -252,21 +233,22 @@ function WordmarkReveal({ visible, instant }: { visible: boolean; instant?: bool
               style={{
                 display: 'inline-flex', alignItems: 'center',
                 padding: '10px 28px',
-                border: '1px solid rgba(201,164,90,0.55)',
+                border: '1px solid var(--c-gold)',
                 borderRadius: 3,
                 fontFamily: '"Space Grotesk", system-ui, sans-serif',
                 fontSize: '0.78rem', letterSpacing: '0.1em',
-                color: 'var(--c-gold)', textDecoration: 'none',
-                transition: 'all 0.25s ease',
-                background: 'var(--c-gold-subtle)',
+                color: 'var(--c-bg)',
+                textDecoration: 'none',
+                transition: 'opacity 0.2s ease, transform 0.2s ease',
+                background: 'var(--c-gold)',
               }}
               onMouseEnter={e => {
-                e.currentTarget.style.background = 'var(--c-gold-subtle)'
-                e.currentTarget.style.borderColor = 'var(--c-gold)'
+                e.currentTarget.style.opacity = '0.88'
+                e.currentTarget.style.transform = 'translateY(-1px)'
               }}
               onMouseLeave={e => {
-                e.currentTarget.style.background = 'var(--c-gold-subtle)'
-                e.currentTarget.style.borderColor = 'rgba(201,164,90,0.55)'
+                e.currentTarget.style.opacity = '1'
+                e.currentTarget.style.transform = 'translateY(0)'
               }}
             >
               Request Access
@@ -287,15 +269,15 @@ function WordmarkReveal({ visible, instant }: { visible: boolean; instant?: bool
                 fontSize: '0.78rem', letterSpacing: '0.1em',
                 color: 'var(--c-text2)', textDecoration: 'none',
                 background: 'transparent',
-                transition: 'all 0.25s ease',
+                transition: 'color 0.2s ease, border-color 0.2s ease',
               }}
               onMouseEnter={e => {
                 e.currentTarget.style.color = 'var(--c-text)'
-                e.currentTarget.style.borderColor = 'var(--c-text2)'
+                e.currentTarget.style.borderColor = 'var(--c-border)'
               }}
               onMouseLeave={e => {
                 e.currentTarget.style.color = 'var(--c-text2)'
-                e.currentTarget.style.borderColor = 'rgba(228,221,208,0.12)'
+                e.currentTarget.style.borderColor = 'var(--c-border)'
               }}
             >
               See the Platform

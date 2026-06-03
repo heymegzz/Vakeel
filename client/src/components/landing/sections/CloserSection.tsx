@@ -523,13 +523,6 @@ export default function CloserSection() {
                 }}>
                   VAKEEL
                 </span>
-                <span style={{
-                  fontFamily: '"Cormorant Garamond", Georgia, serif',
-                  fontSize: '0.85rem', fontStyle: 'italic',
-                  color: tokens.gold,
-                }}>
-                  वकील
-                </span>
 
               </div>
               <div style={{
