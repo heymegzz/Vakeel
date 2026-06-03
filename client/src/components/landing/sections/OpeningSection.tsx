@@ -1,6 +1,5 @@
 import { Suspense, useState, lazy } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-
 const CourtroomScene = lazy(() => import('../three/CourtroomScene'))
 
 /* ─── Mobile fallback ────────────────────────────────────────────── */
@@ -76,6 +75,71 @@ function ScrollIndicator({ visible }: { visible: boolean }) {
   )
 }
 
+/* ─── Scales mark — draws itself ─────────────────────────────────── */
+function ScalesMark() {
+  return (
+    <motion.svg
+      width="40" height="44" viewBox="0 0 40 44" fill="none"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4, delay: 1.2 }}
+      aria-hidden="true"
+    >
+      {/* Vertical stand */}
+      <motion.line
+        x1="20" y1="8" x2="20" y2="36"
+        stroke="rgba(201,164,90,0.7)" strokeWidth="1" strokeLinecap="round"
+        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
+        transition={{ duration: 0.6, delay: 1.3, ease: [0.16,1,0.3,1] }}
+      />
+      {/* Horizontal beam */}
+      <motion.line
+        x1="4" y1="10" x2="36" y2="10"
+        stroke="rgba(201,164,90,0.7)" strokeWidth="1.2" strokeLinecap="round"
+        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
+        transition={{ duration: 0.5, delay: 1.5, ease: [0.16,1,0.3,1] }}
+      />
+      {/* Pivot circle */}
+      <motion.circle cx="20" cy="10" r="2"
+        fill="rgba(201,164,90,0.8)"
+        initial={{ scale: 0 }} animate={{ scale: 1 }}
+        transition={{ duration: 0.3, delay: 1.55 }}
+        style={{ transformOrigin: '20px 10px' }}
+      />
+      {/* Left chain */}
+      <motion.line x1="7" y1="10" x2="7" y2="19"
+        stroke="rgba(201,164,90,0.55)" strokeWidth="0.8" strokeLinecap="round"
+        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
+        transition={{ duration: 0.3, delay: 1.75 }}
+      />
+      {/* Right chain */}
+      <motion.line x1="33" y1="10" x2="33" y2="19"
+        stroke="rgba(201,164,90,0.55)" strokeWidth="0.8" strokeLinecap="round"
+        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
+        transition={{ duration: 0.3, delay: 1.75 }}
+      />
+      {/* Left pan */}
+      <motion.path d="M3 19.5 Q7 22.5 11 19.5"
+        stroke="rgba(201,164,90,0.65)" strokeWidth="1.1" fill="none" strokeLinecap="round"
+        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
+        transition={{ duration: 0.4, delay: 1.9 }}
+      />
+      {/* Right pan */}
+      <motion.path d="M29 19.5 Q33 22.5 37 19.5"
+        stroke="rgba(201,164,90,0.65)" strokeWidth="1.1" fill="none" strokeLinecap="round"
+        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
+        transition={{ duration: 0.4, delay: 1.9 }}
+      />
+      {/* Base */}
+      <motion.line x1="14" y1="36" x2="26" y2="36"
+        stroke="rgba(201,164,90,0.5)" strokeWidth="1.2" strokeLinecap="round"
+        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
+        transition={{ duration: 0.35, delay: 2.0 }}
+      />
+    </motion.svg>
+  )
+}
+
 /* ─── Wordmark reveal overlay ────────────────────────────────────── */
 function WordmarkReveal({ visible }: { visible: boolean }) {
   const easing: [number, number, number, number] = [0.16, 1, 0.3, 1]
@@ -130,18 +194,10 @@ function WordmarkReveal({ visible }: { visible: boolean }) {
             वकील
           </motion.p>
 
-          {/* Divider rule */}
-          <motion.div
-            initial={{ scaleX: 0, opacity: 0 }}
-            animate={{ scaleX: 1, opacity: 1 }}
-            transition={{ duration: 0.9, delay: 1.4, ease: easing }}
-            style={{
-              width: 64, height: 1,
-              background: 'rgba(201,164,90,0.5)',
-              margin: '1.8rem auto',
-              transformOrigin: 'left',
-            }}
-          />
+          {/* Animated scales mark */}
+          <div style={{ display: 'flex', justifyContent: 'center', margin: '1.6rem 0 1.4rem' }}>
+            <ScalesMark />
+          </div>
 
           {/* Tagline */}
           <motion.p
@@ -230,31 +286,7 @@ function WordmarkReveal({ visible }: { visible: boolean }) {
             </a>
           </motion.div>
 
-          {/* YC badge */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 2.8, ease: easing }}
-            style={{ marginTop: '2rem' }}
-          >
-            <span style={{
-              display: 'inline-flex', alignItems: 'center', gap: 6,
-              padding: '4px 12px',
-              border: '1px solid rgba(201,164,90,0.2)',
-              borderRadius: 2,
-              fontFamily: '"Space Mono", monospace',
-              fontSize: '0.6rem', letterSpacing: '0.12em',
-              color: 'rgba(201,164,90,0.45)',
-            }}>
-              <span style={{
-                width: 14, height: 14, borderRadius: 3,
-                background: '#FF6600',
-                display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: '0.55rem', fontWeight: 700, color: '#fff',
-              }}>Y</span>
-              YC-BACKED
-            </span>
-          </motion.div>
+
         </motion.div>
       )}
     </AnimatePresence>

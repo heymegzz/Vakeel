@@ -1,15 +1,18 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import ThemeToggle from './ThemeToggle'
+import { useTheme } from '../providers/ThemeProvider'
 
 const NAV_LINKS = [
-  { label: 'Problem',      href: '#problem'      },
-  { label: 'Product',      href: '#product'      },
-  { label: 'Architecture', href: '#architecture' },
+  { label: 'The Problem', href: '#problem'      },
+  { label: 'Product',     href: '#product'      },
+  { label: 'Architecture',href: '#architecture' },
 ]
 
 export default function Navigation() {
-  const [scrolled,  setScrolled]  = useState(false)
-  const [menuOpen,  setMenuOpen]  = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const { tokens, theme }       = useTheme()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60)
@@ -19,9 +22,14 @@ export default function Navigation() {
 
   const scrollTo = (href: string) => {
     setMenuOpen(false)
-    const el = document.querySelector(href)
-    if (el) el.scrollIntoView({ behavior: 'smooth' })
+    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
   }
+
+  const navBg = scrolled
+    ? theme === 'dark'
+      ? 'rgba(7,7,10,0.90)'
+      : 'rgba(245,237,216,0.92)'
+    : 'transparent'
 
   return (
     <motion.header
@@ -30,44 +38,46 @@ export default function Navigation() {
       transition={{ duration: 0.8, delay: 3.0, ease: [0.16, 1, 0.3, 1] }}
       style={{
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
-        background: scrolled ? 'rgba(7,7,10,0.88)' : 'transparent',
+        background: navBg,
         backdropFilter: scrolled ? 'blur(20px)' : 'none',
-        borderBottom: scrolled ? '1px solid rgba(201,164,90,0.08)' : 'none',
+        borderBottom: scrolled ? `1px solid ${tokens.border}` : 'none',
         transition: 'background 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease',
       }}
     >
-      <nav
-        style={{
-          maxWidth: 1280, margin: '0 auto',
-          padding: '0 clamp(1.5rem, 5vw, 4rem)',
-          height: 68,
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        }}
-      >
-        {/* Wordmark */}
+      <nav style={{
+        maxWidth: 1280, margin: '0 auto',
+        padding: '0 clamp(1.5rem, 5vw, 4rem)',
+        height: 64,
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+      }}>
+
+        {/* ── Wordmark (English only) ── */}
         <a
           href="#"
           data-cursor="hover"
-          onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
-          style={{ textDecoration: 'none', display: 'flex', alignItems: 'baseline', gap: 8 }}
+          onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
+          style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 10 }}
         >
+          {/* Scales micro-icon */}
+          <svg width="14" height="16" viewBox="0 0 14 16" fill="none" aria-hidden="true">
+            <line x1="7" y1="1" x2="7" y2="13" stroke={tokens.gold} strokeWidth="0.9" strokeLinecap="round" />
+            <line x1="1" y1="3.5" x2="13" y2="3.5" stroke={tokens.gold} strokeWidth="0.9" strokeLinecap="round" />
+            <circle cx="7" cy="3.5" r="1" fill={tokens.gold} />
+            <path d="M1 3.5 Q2.5 7 4 3.5" stroke={tokens.gold} strokeWidth="0.85" fill="none" strokeLinecap="round" />
+            <path d="M10 3.5 Q11.5 7 13 3.5" stroke={tokens.gold} strokeWidth="0.85" fill="none" strokeLinecap="round" />
+            <line x1="4.5" y1="13" x2="9.5" y2="13" stroke={tokens.gold} strokeWidth="1" strokeLinecap="round" />
+          </svg>
+
           <span style={{
             fontFamily: '"Cormorant Garamond", Georgia, serif',
-            fontSize: '1.45rem', fontWeight: 600, letterSpacing: '0.12em',
-            color: '#EBE1CC',
+            fontSize: '1.4rem', fontWeight: 600,
+            letterSpacing: '0.14em', color: tokens.cream,
           }}>
             VAKEEL
           </span>
-          <span style={{
-            fontFamily: '"Cormorant Garamond", Georgia, serif',
-            fontSize: '0.85rem', fontStyle: 'italic',
-            color: 'rgba(201,164,90,0.7)', letterSpacing: '0.05em',
-          }}>
-            वकील
-          </span>
         </a>
 
-        {/* Desktop links */}
+        {/* ── Desktop nav ── */}
         <div className="hidden md:flex items-center gap-8">
           {NAV_LINKS.map(link => (
             <button
@@ -75,76 +85,78 @@ export default function Navigation() {
               data-cursor="hover"
               onClick={() => scrollTo(link.href)}
               style={{
-                background: 'none', border: 'none', padding: '4px 0',
+                background: 'none', border: 'none',
                 fontFamily: '"Space Grotesk", system-ui, sans-serif',
-                fontSize: '0.82rem', letterSpacing: '0.06em',
-                color: 'rgba(228,221,208,0.55)',
-                transition: 'color 0.2s ease', cursor: 'pointer',
+                fontSize: '0.8rem', letterSpacing: '0.05em',
+                color: tokens.text2, transition: 'color 0.2s ease',
               }}
-              onMouseEnter={e => (e.currentTarget.style.color = '#EBE1CC')}
-              onMouseLeave={e => (e.currentTarget.style.color = 'rgba(228,221,208,0.55)')}
+              onMouseEnter={e => (e.currentTarget.style.color = tokens.text)}
+              onMouseLeave={e => (e.currentTarget.style.color = tokens.text2)}
             >
               {link.label}
             </button>
           ))}
+
+          {/* Theme toggle */}
+          <ThemeToggle />
+
+          {/* CTA */}
           <a
             href="#closer"
             data-cursor="hover"
-            onClick={(e) => { e.preventDefault(); scrollTo('#closer') }}
+            onClick={e => { e.preventDefault(); scrollTo('#closer') }}
             style={{
-              display: 'inline-flex', alignItems: 'center', gap: 6,
-              padding: '8px 20px',
-              border: '1px solid rgba(201,164,90,0.4)',
+              display: 'inline-flex', alignItems: 'center',
+              padding: '7px 18px',
+              border: `1px solid ${tokens.goldBorder}`,
               borderRadius: 3,
               fontFamily: '"Space Grotesk", system-ui, sans-serif',
-              fontSize: '0.8rem', letterSpacing: '0.06em',
-              color: '#C9A45A', textDecoration: 'none',
+              fontSize: '0.78rem', letterSpacing: '0.06em',
+              color: tokens.gold, textDecoration: 'none',
               transition: 'border-color 0.2s ease, background 0.2s ease',
             }}
             onMouseEnter={e => {
-              e.currentTarget.style.background = 'rgba(201,164,90,0.08)'
-              e.currentTarget.style.borderColor = 'rgba(201,164,90,0.7)'
+              e.currentTarget.style.background = tokens.goldSubtle
+              e.currentTarget.style.borderColor = tokens.gold
             }}
             onMouseLeave={e => {
               e.currentTarget.style.background = 'transparent'
-              e.currentTarget.style.borderColor = 'rgba(201,164,90,0.4)'
+              e.currentTarget.style.borderColor = tokens.goldBorder
             }}
           >
-            Request Access
+            Get Access
           </a>
         </div>
 
-        {/* Mobile hamburger */}
-        <button
-          className="md:hidden"
-          data-cursor="hover"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-          style={{ background: 'none', border: 'none', padding: 8 }}
-        >
-          <div style={{ width: 22, height: 14, position: 'relative' }}>
-            <span style={{
-              display: 'block', height: 1, width: menuOpen ? '70%' : '100%',
-              background: '#C9A45A', marginBottom: 5,
-              transform: menuOpen ? 'translateY(6px) rotate(45deg)' : 'none',
-              transition: 'all 0.25s ease', transformOrigin: 'left',
-            }} />
-            <span style={{
-              display: 'block', height: 1, background: '#C9A45A',
-              opacity: menuOpen ? 0 : 1, transition: 'opacity 0.2s ease',
-              marginBottom: 5,
-            }} />
-            <span style={{
-              display: 'block', height: 1, width: menuOpen ? '70%' : '100%',
-              background: '#C9A45A',
-              transform: menuOpen ? 'translateY(-6px) rotate(-45deg)' : 'none',
-              transition: 'all 0.25s ease', transformOrigin: 'left',
-            }} />
-          </div>
-        </button>
+        {/* ── Mobile right cluster ── */}
+        <div className="md:hidden flex items-center gap-3">
+          <ThemeToggle />
+          <button
+            data-cursor="hover"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            style={{ background: 'none', border: 'none', padding: 6 }}
+          >
+            <div style={{ width: 20, display: 'flex', flexDirection: 'column', gap: 4 }}>
+              {[0, 1, 2].map(i => (
+                <span key={i} style={{
+                  display: 'block', height: 1,
+                  background: tokens.gold,
+                  width: i === 1 ? '70%' : '100%',
+                  transform: menuOpen && i === 0 ? 'translateY(5px) rotate(45deg)'
+                            : menuOpen && i === 2 ? 'translateY(-5px) rotate(-45deg)'
+                            : 'none',
+                  opacity: menuOpen && i === 1 ? 0 : 1,
+                  transition: 'all 0.22s ease',
+                  transformOrigin: 'left',
+                }} />
+              ))}
+            </div>
+          </button>
+        </div>
       </nav>
 
-      {/* Mobile menu */}
+      {/* ── Mobile menu ── */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -154,20 +166,20 @@ export default function Navigation() {
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             style={{
               overflow: 'hidden',
-              background: 'rgba(7,7,10,0.97)',
-              borderTop: '1px solid rgba(201,164,90,0.08)',
+              background: theme === 'dark' ? 'rgba(7,7,10,0.97)' : 'rgba(245,237,216,0.97)',
+              borderTop: `1px solid ${tokens.border}`,
             }}
           >
-            <div style={{ padding: '1.5rem clamp(1.5rem, 5vw, 4rem)', display: 'flex', flexDirection: 'column', gap: 4 }}>
-              {[...NAV_LINKS, { label: 'Request Access', href: '#closer' }].map(link => (
+            <div style={{ padding: '1.5rem clamp(1.5rem, 5vw, 4rem)', display: 'flex', flexDirection: 'column', gap: 2 }}>
+              {[...NAV_LINKS, { label: 'Get Access', href: '#closer' }].map(link => (
                 <button
                   key={link.href}
                   onClick={() => scrollTo(link.href)}
                   style={{
                     background: 'none', border: 'none', textAlign: 'left',
-                    padding: '12px 0', borderBottom: '1px solid rgba(201,164,90,0.06)',
+                    padding: '11px 0', borderBottom: `1px solid ${tokens.border}`,
                     fontFamily: '"Space Grotesk", system-ui, sans-serif',
-                    fontSize: '1rem', color: '#E4DDD0',
+                    fontSize: '0.95rem', color: tokens.text,
                   }}
                 >
                   {link.label}

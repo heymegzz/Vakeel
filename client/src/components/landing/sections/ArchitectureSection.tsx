@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { IconShield, IconZap, IconVault, IconSignal } from '../ui/Icons'
+import { useTheme } from '../providers/ThemeProvider'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -169,6 +170,7 @@ function RoleCard({ role, index }: RoleCardProps) {
 
 /* ─── Architecture Section ───────────────────────────────────────── */
 export default function ArchitectureSection() {
+  const { tokens } = useTheme()
   const sectionRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
@@ -200,10 +202,10 @@ export default function ArchitectureSection() {
       id="architecture"
       ref={sectionRef}
       style={{
-        background: '#07070A',
-        padding: 'clamp(5rem, 10vw, 9rem) clamp(1.5rem, 7vw, 8rem)',
-        position: 'relative',
-        overflow: 'hidden',
+        background: tokens.bg,
+          padding: 'clamp(5rem, 10vw, 9rem) clamp(1.5rem, 7vw, 8rem)',
+          position: 'relative',
+          overflow: 'hidden',
       }}
     >
       {/* Scanline overlay */}

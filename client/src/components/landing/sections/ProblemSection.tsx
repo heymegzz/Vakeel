@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useTheme } from '../providers/ThemeProvider'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -43,6 +44,7 @@ const STATS = [
 
 /* ─── Component ──────────────────────────────────────────────────── */
 export default function ProblemSection() {
+  const { tokens } = useTheme()
   const sectionRef   = useRef<HTMLElement>(null)
   const headlineRef  = useRef<HTMLDivElement>(null)
   const statsRef     = useRef<HTMLDivElement>(null)
@@ -128,10 +130,10 @@ export default function ProblemSection() {
       id="problem"
       ref={sectionRef}
       style={{
-        background: '#07070A',
-        padding: 'clamp(5rem, 10vw, 9rem) clamp(1.5rem, 7vw, 8rem)',
-        position: 'relative',
-        overflow: 'hidden',
+        background: tokens.bg,
+          padding: 'clamp(5rem, 10vw, 9rem) clamp(1.5rem, 7vw, 8rem)',
+          position: 'relative',
+          overflow: 'hidden',
       }}
     >
       {/* Noise overlay */}

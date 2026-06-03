@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useTheme } from '../providers/ThemeProvider'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -510,6 +511,7 @@ const PANELS = [
 
 /* ─── Main Component ─────────────────────────────────────────────── */
 export default function ProductSection() {
+  const { tokens } = useTheme()
   const pinRef   = useRef<HTMLDivElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
   const [isMobile, setIsMobile] = useState(false)
@@ -547,7 +549,7 @@ export default function ProductSection() {
   }, [isMobile])
 
   return (
-    <section id="product" style={{ background: '#07070A', overflow: 'hidden' }}>
+    <section id="product" style={{ background: tokens.bg, overflow: 'hidden' }}>
       {/* Section header — always visible above the scroll */}
       <div style={{
         padding: 'clamp(5rem, 8vw, 8rem) clamp(1.5rem, 7vw, 8rem) 0',

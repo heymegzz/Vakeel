@@ -2,6 +2,7 @@ import { useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useForm } from 'react-hook-form'
 import { IconCheckCircle } from '../ui/Icons'
+import { useTheme } from '../providers/ThemeProvider'
 
 /* ─── Form types ─────────────────────────────────────────────────── */
 interface WaitlistFormData {
@@ -264,11 +265,12 @@ function WaitlistForm() {
 
 /* ─── Closer Section ─────────────────────────────────────────────── */
 export default function CloserSection() {
+  const { tokens } = useTheme()
   const quoteRef = useRef<HTMLDivElement>(null)
   const easing: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
   return (
-    <section id="closer" style={{ background: '#07070A' }}>
+    <section id="closer" style={{ background: tokens.bg }}>
 
       {/* ── Sub-section A: Conviction ── */}
       <div style={{
@@ -447,8 +449,8 @@ export default function CloserSection() {
       {/* ── Sub-section B: Form ── */}
       <div style={{
         padding: 'clamp(5rem, 8vw, 8rem) clamp(1.5rem, 7vw, 6rem)',
-        background: '#07070A',
-        borderTop: '1px solid rgba(201,164,90,0.08)',
+        background: tokens.bg,
+        borderTop: `1px solid ${tokens.border}`,
       }}>
         <div style={{ maxWidth: 660, margin: '0 auto' }}>
           <motion.div
@@ -501,8 +503,8 @@ export default function CloserSection() {
 
       {/* ── Footer ── */}
       <footer style={{
-        background: '#07070A',
-        borderTop: '1px solid rgba(201,164,90,0.07)',
+        background: tokens.bg,
+        borderTop: `1px solid ${tokens.border}`,
         padding: 'clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 7vw, 6rem)',
       }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
@@ -532,23 +534,7 @@ export default function CloserSection() {
                 }}>
                   वकील
                 </span>
-                <span style={{
-                  display: 'inline-flex', alignItems: 'center', gap: 4,
-                  padding: '2px 8px',
-                  border: '1px solid rgba(201,164,90,0.25)',
-                  borderRadius: 2,
-                  fontFamily: '"Space Mono", monospace',
-                  fontSize: '0.5rem', letterSpacing: '0.1em',
-                  color: 'rgba(201,164,90,0.5)',
-                }}>
-                  <span style={{
-                    width: 12, height: 12, borderRadius: 2,
-                    background: '#FF6600',
-                    display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: '0.48rem', fontWeight: 700, color: '#fff',
-                  }}>Y</span>
-                  YC W26
-                </span>
+
               </div>
               <div style={{
                 fontFamily: '"Space Grotesk", system-ui, sans-serif',
