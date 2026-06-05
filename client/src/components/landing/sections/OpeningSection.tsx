@@ -132,6 +132,7 @@ function ScalesMark() {
         initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
         transition={{ duration: 0.4, delay: 1.9 }}
       />
+
       {/* Base */}
       <motion.line x1="14" y1="36" x2="26" y2="36"
         stroke="rgba(201,164,90,0.5)" strokeWidth="1.2" strokeLinecap="round"

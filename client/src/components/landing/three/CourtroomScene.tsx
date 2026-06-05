@@ -99,53 +99,32 @@ function Courtroom() {
       <ambientLight intensity={0.035} color="#1A1520" />
       <hemisphereLight intensity={0.06} color="#151020" groundColor="#080600" />
 
-      {/* Window spotlights — left wall (3 windows) */}
+      {/* Window spotlights — left wall (3 windows, no emissive pane) */}
       {([-10, 0, 10] as number[]).map((z, i) => (
-        <group key={`lw-${i}`}>
-          <spotLight
-            position={[-12, 7.5, z]}
-            target-position={[2, 0, z]}
-            angle={0.22}
-            penumbra={0.92}
-            intensity={7}
-            color="#DDB87A"
-            decay={1.8}
-          />
-          {/* Emissive window pane */}
-          <mesh position={[-13.8, 6, z]}>
-            <boxGeometry args={[0.15, 2.6, 1.6]} />
-            <meshStandardMaterial
-              color="#000"
-              emissive="#D4A855"
-              emissiveIntensity={4}
-              toneMapped={false}
-            />
-          </mesh>
-        </group>
+        <spotLight
+          key={`lw-${i}`}
+          position={[-12, 7.5, z]}
+          target-position={[2, 0, z]}
+          angle={0.22}
+          penumbra={0.92}
+          intensity={7}
+          color="#DDB87A"
+          decay={1.8}
+        />
       ))}
 
-      {/* Window spotlights — right wall (3 windows) */}
+      {/* Window spotlights — right wall (3 windows, no emissive pane) */}
       {([-10, 0, 10] as number[]).map((z, i) => (
-        <group key={`rw-${i}`}>
-          <spotLight
-            position={[12, 7.5, z]}
-            target-position={[-2, 0, z]}
-            angle={0.22}
-            penumbra={0.92}
-            intensity={5.5}
-            color="#CCA060"
-            decay={1.8}
-          />
-          <mesh position={[13.8, 6, z]}>
-            <boxGeometry args={[0.15, 2.6, 1.6]} />
-            <meshStandardMaterial
-              color="#000"
-              emissive="#C89840"
-              emissiveIntensity={3.5}
-              toneMapped={false}
-            />
-          </mesh>
-        </group>
+        <spotLight
+          key={`rw-${i}`}
+          position={[12, 7.5, z]}
+          target-position={[-2, 0, z]}
+          angle={0.22}
+          penumbra={0.92}
+          intensity={5.5}
+          color="#CCA060"
+          decay={1.8}
+        />
       ))}
 
       {/* Soft fill — front */}
